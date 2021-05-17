@@ -1,0 +1,43 @@
+.bar--icon {
+  display: none;
+  color: whitesmoke;
+}
+.close--icon {
+  color: white;
+  display: none;
+}
+
+/* .nav--list{
+    display: none;
+} */
+@media only screen and (max-width: 768px) {
+  .sticky--nav {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+  }
+
+  .nav--header {
+    margin: 0 var(--space-2);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+
+
+  .nav--list {
+    display: none;
+  }
+
+  .nav--list.show {
+    display: inline-block;
+  }
+
+  .bar--icon{
+      display: inline-block;
+  }
+}

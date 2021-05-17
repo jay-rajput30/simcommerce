@@ -1,5 +1,5 @@
-import Navbar from "./components/Navbar";
-import Products from "./components/Products";
+import Navbar from "./components/Navbar/Navbar";
+import Products from "./components/Products/Products";
 import Cart from "./components/Cart";
 import Wishlist from "./components/Wishlist";
 import { useState } from "react";
@@ -17,7 +17,7 @@ function App() {
         <Route path="/" element={<Products />} />
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/cart" element={<Cart />} />
-        <PrivateRoute path="/login" element={<Login />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </div>
   );

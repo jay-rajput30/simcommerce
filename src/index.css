@@ -24,6 +24,13 @@ code {
     monospace;
 }
 
+.sticky--nav{
+  width: 100%;
+  margin: 0 ;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .cart--items{
   list-style-type: none;
   display: flex;
@@ -56,20 +63,7 @@ code {
   padding-left: var(--space-2);
 }
 
-.product--container{
-  display: flex;
-  justify-content: center;
-  align-items: baseline ;
-}
-
-.filter--options{
-  display: flex;
-  flex-direction: column;
-  width: 100vw;
-  border-left: 2px solid var(--secondary-color); 
-}
-
-.price--sort{
+/* .price--sort{
   border: 2px solid green;
   display: flex;
   flex-direction: column;
@@ -79,7 +73,7 @@ code {
 .filter--options__item{
   padding: var(--space-1);
   margin-bottom: var(--space-2);
-}
+} */
 
 .active--link{
   font-weight: bold;

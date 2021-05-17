@@ -1,14 +1,30 @@
 import { NavLink } from "react-router-dom";
-import Products from "./Products";
-import Wishlist from "./Wishlist";
-import Cart from "./Cart";
+import Products from "../Products/Products";
+import Wishlist from "../Wishlist";
+import Cart from "../Cart";
+import "./Navbar.css";
+
+import { FaBars } from "react-icons/fa";
+import { MdClose } from "react-icons/md";
+
+import { useState } from "react";
 
 const Navbar = ({ route, setRoute }) => {
+
+  const [toggleBar, setToggleBar] = useState(true);
+
+  const toggleHandler=() =>{
+    setToggleBar(!toggleBar)
+  }
   return (
-    <>
+
       <nav className="sticky--nav">
-        <h3 className="nav--hero">SimCommerce</h3>
-        <ul className="nav--list">
+        <div className="nav--header">
+          <h3 className="nav--hero">SimCommerce</h3>
+          <FaBars className="bar--icon" onClick={toggleHandler}/>
+        </div>
+
+        <ul className={`${toggleBar ? "nav--list show" : "nav--list"}`}>
           <li onClick={() => setRoute("product")} className="nav--items">
             <NavLink activeClassName="active--link" to="/">
               product
@@ -31,7 +47,6 @@ const Navbar = ({ route, setRoute }) => {
           </li>
         </ul>
       </nav>
-    </>
   );
 };
 

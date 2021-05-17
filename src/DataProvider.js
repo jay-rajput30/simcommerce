@@ -5,7 +5,7 @@ export const dataContext = createContext();
 const dataReducerFunc = (state, { type, payload }) => {
   switch (type) {
     case "WISHLIST_ADD": {
-      let newPayload = { ...payload, quantity: 1 };
+      let newPayload = { ...payload, quantity: 1, isWishlisted: true };
       const wishlistItemAlreadyPresent = state.wishlistItems.some(
         (item) => item.id === payload.id
       );
@@ -14,7 +14,7 @@ const dataReducerFunc = (state, { type, payload }) => {
             ...state,
             wishlistItems: state.wishlistItems.map((item) =>
               item.id === payload.id
-                ? { ...item, quantity: item.quantity + 1 }
+                ? { ...item, quantity: item.quantity + 1, isWishlisted: true }
                 : item
             ),
           }
