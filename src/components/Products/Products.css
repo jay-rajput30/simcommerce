@@ -29,7 +29,6 @@
 }
 
 @media only screen and (max-width: 786px) {
-
   .product--container {
     display: flex;
     flex-direction: column;
@@ -52,10 +51,10 @@
   }
 }
 
-@media only screen and (max-width: 375px){
-    .filter--options{
-        position: relative;
+@media only screen and (max-width: 375px) {
+  .filter--options {
+    position: relative;
     top: 0;
     left: 28%;
-    }
+  }
 }

@@ -119,8 +119,11 @@ const Products = ({ route, setRoute }) => {
                   }
                 }}
               >
-                {console.log(item.isWishlisted)}
-                {findWishlistedItem(item) ? <FcLike /> : <AiOutlineHeart />}
+                {findWishlistedItem(item) ? (
+                  <FcLike style={{ fontSize: "1.5rem" }} />
+                ) : (
+                  <AiOutlineHeart style={{ fontSize: "1.5rem" }} />
+                )}
               </span>
               <div className="card--bottom">
                 <div>

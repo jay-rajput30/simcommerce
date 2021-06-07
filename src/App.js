@@ -5,16 +5,17 @@ import Wishlist from "./components/Wishlist";
 import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Login from "./components/Login";
-import PrivateRoute from "./components/PrivateRoute";
+// import PrivateRoute from "./components/PrivateRoute";
+import Landing from "./components/Landing/Landing";
 function App() {
   const [route, setRoute] = useState("product");
 
   return (
     <div className="App">
       <Navbar route={route} setRoute={setRoute} />
-
       <Routes>
-        <Route path="/" element={<Products />} />
+        <Route path="/" element={<Landing />} />
+        <Route path="/product" element={<Products />} />
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/login" element={<Login />} />

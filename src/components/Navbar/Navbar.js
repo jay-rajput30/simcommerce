@@ -10,43 +10,53 @@ import { MdClose } from "react-icons/md";
 import { useState } from "react";
 
 const Navbar = ({ route, setRoute }) => {
-
   const [toggleBar, setToggleBar] = useState(true);
 
-  const toggleHandler=() =>{
-    setToggleBar(!toggleBar)
-  }
+  const toggleHandler = () => {
+    setToggleBar(!toggleBar);
+  };
   return (
+    <nav className="sticky--nav navbar">
+      <div className="nav--header">
+        <h3 onClick={() => setRoute("landing")}>
+          <NavLink
+            style={{
+              cursor: "pointer",
+              color: "var(--secondary-color",
+              fontSize: "var(--length-lg1)",
+            }}
+            activeClassName="active--link"
+            to="/"
+          >
+            SimCommerce
+          </NavLink>
+        </h3>
+        <FaBars className="bar--icon" onClick={toggleHandler} />
+      </div>
 
-      <nav className="sticky--nav">
-        <div className="nav--header">
-          <h3 className="nav--hero">SimCommerce</h3>
-          <FaBars className="bar--icon" onClick={toggleHandler}/>
-        </div>
-
-        <ul className={`${toggleBar ? "nav--list show" : "nav--list"}`}>
-          <li onClick={() => setRoute("product")} className="nav--items">
-            <NavLink activeClassName="active--link" to="/">
-              product
-            </NavLink>
-          </li>
-          <li onClick={() => setRoute("wishlist")} className="nav--items">
-            <NavLink activeClassName="active--link" to="/wishlist">
-              wishlist
-            </NavLink>
-          </li>
-          <li onClick={() => setRoute("cart")} className="nav--items">
-            <NavLink activeClassName="active--link" to="/cart">
-              cart
-            </NavLink>
-          </li>
-          <li onClick={() => setRoute("login")} className="nav--items">
-            <NavLink activeClassName="active--link" to="/login">
-              Login
-            </NavLink>
-          </li>
-        </ul>
-      </nav>
+      <ul className={`${toggleBar ? "nav--list show" : "nav--list"}`}>
+        <li onClick={() => setRoute("product")} className="nav--items">
+          <NavLink activeClassName="active--link" to="/product">
+            product
+          </NavLink>
+        </li>
+        <li onClick={() => setRoute("wishlist")} className="nav--items">
+          <NavLink activeClassName="active--link" to="/wishlist">
+            wishlist
+          </NavLink>
+        </li>
+        <li onClick={() => setRoute("cart")} className="nav--items">
+          <NavLink activeClassName="active--link" to="/cart">
+            cart
+          </NavLink>
+        </li>
+        <li onClick={() => setRoute("login")} className="nav--items">
+          <NavLink activeClassName="active--link" to="/login">
+            Login
+          </NavLink>
+        </li>
+      </ul>
+    </nav>
   );
 };
 

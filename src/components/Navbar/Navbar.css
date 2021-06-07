@@ -7,6 +7,11 @@
   display: none;
 }
 
+.nav--hero {
+  cursor: pointer;
+  color: var(--secondary-color);
+}
+
 /* .nav--list{
     display: none;
 } */
@@ -27,8 +32,6 @@
     align-items: center;
   }
 
-
-
   .nav--list {
     display: none;
   }
@@ -37,7 +40,7 @@
     display: inline-block;
   }
 
-  .bar--icon{
-      display: inline-block;
+  .bar--icon {
+    display: inline-block;
   }
 }
