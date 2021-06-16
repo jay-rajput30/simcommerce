@@ -13,8 +13,6 @@ const Products = ({ route, setRoute }) => {
     useProduct();
 
   const { wishlistItems, cartItems, dataDispatch } = useData();
-
-  console.log(wishlistItems);
   const sortData = (productList, sortBy) => {
     if (sortBy && sortBy === "HIGH_TO_LOW") {
       return productList.sort((a, b) => b["price"] - a["price"]);

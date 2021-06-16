@@ -4,18 +4,16 @@
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  /* flex: 0.5; */
+  width: 100%;
 }
 
 .filter--options {
   /* border: 2px solid orange; */
-  /* width: 50%; */
-  /* flex: 0.5; */
   padding: var(--space-1) var(--space-2);
-  height: 100vh;
+  /* height: 100%; */
   position: fixed;
   left: 0;
-  top: 300px;
+  top: 220px;
 }
 
 .filter--options__item {
