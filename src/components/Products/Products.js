@@ -1,14 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useData } from "../../DataProvider";
 import { useProduct } from "../../ProductProvider";
 import "./Products.css";
 import { AiOutlineHeart } from "react-icons/ai";
 import { FcLike } from "react-icons/fc";
 
+
 const Products = ({ route, setRoute }) => {
   // const [wishlisted, setWishlisted] = useState();
   // console.log(wishlisted);
-
+ 
   const { data, sortBy, showFastDelivery, showOutOfStock, dispatch } =
     useProduct();
 
