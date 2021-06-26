@@ -14,9 +14,9 @@ const Products = ({ route, setRoute }) => {
 
   useEffect(() => {
     async function fetchData() {
-      const { data } = await axios.get("http://localhost:3000/product");
+      const { data } = await axios.get("http://localhost:3001/product");
       setProductData([...data.data]);
-      // console.log(data.data);
+      console.log("line 19", data.data);
     }
     fetchData();
   }, []);
@@ -54,7 +54,7 @@ const Products = ({ route, setRoute }) => {
 
     // itemWishlisted ? setWishlisted(true) : setWishlisted(false);
   };
-
+  console.log("line 57", productData);
   return (
     <div className="product--container">
       <section className="filter--options">
@@ -114,7 +114,7 @@ const Products = ({ route, setRoute }) => {
       <section className="products--section">
         {sortedData.map((item) => {
           {
-            console.log(item);
+            // console.log(item);
           }
           return (
             <article className="card">
