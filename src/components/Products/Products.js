@@ -1,41 +1,51 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { useData } from "../../DataProvider";
 import { useProduct } from "../../ProductProvider";
 import "./Products.css";
 import { AiOutlineHeart } from "react-icons/ai";
 import { FcLike } from "react-icons/fc";
-
+import axios from "axios";
 
 const Products = ({ route, setRoute }) => {
-  // const [wishlisted, setWishlisted] = useState();
-  // console.log(wishlisted);
- 
+  const [productData, setProductData] = useState([]);
+
   const { data, sortBy, showFastDelivery, showOutOfStock, dispatch } =
     useProduct();
 
+  useEffect(() => {
+    async function fetchData() {
+      const { data } = await axios.get("http://localhost:3000/product");
+      setProductData([...data.data]);
+      // console.log(data.data);
+    }
+    fetchData();
+  }, []);
+
   const { wishlistItems, cartItems, dataDispatch } = useData();
-  const sortData = (productList, sortBy) => {
+
+  const sortData = (productData, sortBy) => {
+    // console.log(productData);
     if (sortBy && sortBy === "HIGH_TO_LOW") {
-      return productList.sort((a, b) => b["price"] - a["price"]);
+      return productData.sort((a, b) => b["price"] - a["price"]);
     }
     if (sortBy && sortBy === "LOW_TO_HIGH") {
-      return productList.sort((a, b) => a["price"] - b["price"]);
+      return productData.sort((a, b) => a["price"] - b["price"]);
     }
-    return productList;
+    return productData;
   };
 
-  const filterData = (productList, fastDelivery, outOfStock) => {
-    return productList
-      .filter(({ fastDelivery }) => (showFastDelivery ? fastDelivery : true))
-      .filter(({ inStock }) => (showOutOfStock ? true : inStock));
-  };
+  // const filterData = (productData, fastDelivery, outOfStock) => {
+  //   return productData
+  //     .filter(({ fastDelivery }) => (showFastDelivery ? fastDelivery : true))
+  //     .filter(({ inStock }) => (showOutOfStock ? true : inStock));
+  // };
 
-  const sortedData = sortData(data, sortBy);
-
-  let filteredData = filterData(sortedData, {
-    showFastDelivery,
-    showOutOfStock,
-  });
+  const sortedData = sortData(productData, sortBy);
+  // console.log("sorted products", sortedData);
+  // let filteredData = filterData(sortedData, {
+  //   showFastDelivery,
+  //   showOutOfStock,
+  // });
 
   const findWishlistedItem = (item) => {
     return wishlistItems.some(
@@ -102,11 +112,14 @@ const Products = ({ route, setRoute }) => {
       </section>
 
       <section className="products--section">
-        {filteredData.map((item) => {
+        {sortedData.map((item) => {
+          {
+            console.log(item);
+          }
           return (
             <article className="card">
               <div className="card--top">
-                <img src={item.image} alt={`${item.image}`} />
+                <img src={item["imageUrl"]} alt={`${item["imageUrl"]}`} />
                 <span className="card--top--text">{item.name}</span>
               </div>
               <span
@@ -126,7 +139,7 @@ const Products = ({ route, setRoute }) => {
               </span>
               <div className="card--bottom">
                 <div>
-                  <p>{item.price}</p>
+                  <p>{item["price"]}</p>
                   <p>{item.inStock ? "in stock" : "out of stock"}</p>
                   <p>{item.fastDelivery ? "fast delivery" : null}</p>
                 </div>
