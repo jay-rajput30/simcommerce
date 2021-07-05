@@ -15,8 +15,8 @@ const Products = ({ route, setRoute }) => {
   useEffect(() => {
     async function fetchData() {
       const { data } = await axios.get("http://localhost:3001/product");
-      setProductData([...data.data]);
-      console.log("line 19", data.data);
+      setProductData([...data.products]);
+      console.log("line 19", data.products);
     }
     fetchData();
   }, []);
@@ -34,18 +34,18 @@ const Products = ({ route, setRoute }) => {
     return productData;
   };
 
-  // const filterData = (productData, fastDelivery, outOfStock) => {
-  //   return productData
-  //     .filter(({ fastDelivery }) => (showFastDelivery ? fastDelivery : true))
-  //     .filter(({ inStock }) => (showOutOfStock ? true : inStock));
-  // };
+  const filterData = (productData, fastDelivery, outOfStock) => {
+    return productData
+      .filter(({ fastDelivery }) => (showFastDelivery ? fastDelivery : true))
+      .filter(({ outOfStock }) => (showOutOfStock ? outOfStock : true));
+  };
 
   const sortedData = sortData(productData, sortBy);
   // console.log("sorted products", sortedData);
-  // let filteredData = filterData(sortedData, {
-  //   showFastDelivery,
-  //   showOutOfStock,
-  // });
+  let filteredData = filterData(sortedData, {
+    showFastDelivery,
+    showOutOfStock,
+  });
 
   const findWishlistedItem = (item) => {
     return wishlistItems.some(
@@ -54,7 +54,7 @@ const Products = ({ route, setRoute }) => {
 
     // itemWishlisted ? setWishlisted(true) : setWishlisted(false);
   };
-  console.log("line 57", productData);
+  // console.log("line 57", productData);
   return (
     <div className="product--container">
       <section className="filter--options">
@@ -112,7 +112,7 @@ const Products = ({ route, setRoute }) => {
       </section>
 
       <section className="products--section">
-        {sortedData.map((item) => {
+        {filteredData.map((item) => {
           {
             // console.log(item);
           }
@@ -140,7 +140,7 @@ const Products = ({ route, setRoute }) => {
               <div className="card--bottom">
                 <div>
                   <p>{item["price"]}</p>
-                  <p>{item.inStock ? "in stock" : "out of stock"}</p>
+                  <p>{item.outOfStock ? "out of stock" : "in stock"}</p>
                   <p>{item.fastDelivery ? "fast delivery" : null}</p>
                 </div>
 

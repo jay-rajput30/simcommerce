@@ -57,7 +57,7 @@ export const ProductProvider = ({ children }) => {
     {
       sortBy: null,
       showFastDelivery: false,
-      showOutOfStock: true,
+      showOutOfStock: false,
     }
   );
   return (
