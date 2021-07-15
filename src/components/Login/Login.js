@@ -15,27 +15,35 @@ const Login = () => {
   //   logoutUser();
   // };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefaults();
     return null;
   };
 
   const formClickHandler = () => {};
 
   return (
-    <div className="login--container">
-      <form onSubmit={handleSubmit}>
-        <div className="form--item">
-          <label className="username--label">username</label>
-          <input type="text" className="username--input" />
-        </div>
-        <div className="form--item">
-          <label className="password--label">password</label>
-          <input type="password" className="password--input" />
-        </div>
-        <button className="form--item" onClick={formClickHandler}>
-          login
-        </button>
-      </form>
+    <div className="main--container">
+      <div className="login--container">
+        <form onSubmit={handleSubmit}>
+          <div className="form--item">
+            <label className="username--label">username</label>
+            <input type="text" className="username--input" />
+          </div>
+          <div className="form--item">
+            <label className="password--label">password</label>
+            <input type="password" className="password--input" />
+          </div>
+          <div className="form--item">
+            <button
+              className="form--item button primary--button"
+              onClick={formClickHandler}
+            >
+              login
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };
