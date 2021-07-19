@@ -1,4 +1,4 @@
-.login--container {
+.signup--container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -25,16 +25,16 @@
 }
 .form--item {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   width: 300px;
   margin-bottom: var(--space-2);
+  padding: var(--space-1) var(--space-2);
 }
-.button--form--item {
-  border: 2px solid red;
+.form--item.button.primary--button {
   display: flex;
   justify-content: center;
   padding: var(--space-1);
   font-size: var(--length-md1);
   width: 100px;
-  /* text-align: center; */
+  text-align: center;
 }

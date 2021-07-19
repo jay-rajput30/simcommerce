@@ -1,6 +1,7 @@
-import { useLocation, useNavigate } from "react-router";
-import { useAuth } from "../../AuthProvider";
+// import { useLocation, useNavigate } from "react-router";
+// import { useAuth } from "../../AuthProvider";
 import "./Login.css";
+import { NavLink } from "react-router-dom";
 
 const Login = () => {
   // const { loggedin, loginUserWithCredentials, logoutUser  } = useAuth();
@@ -34,13 +35,18 @@ const Login = () => {
             <label className="password--label">password</label>
             <input type="password" className="password--input" />
           </div>
-          <div className="form--item">
+          <div className="button--form--item form--item">
             <button
-              className="form--item button primary--button"
+              className="button primary--button"
               onClick={formClickHandler}
             >
               login
             </button>
+          </div>
+          <div className="form--item">
+            <small>
+              <NavLink to="/signup">sign up</NavLink>
+            </small>
           </div>
         </form>
       </div>

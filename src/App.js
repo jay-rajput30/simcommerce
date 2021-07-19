@@ -2,9 +2,11 @@ import Navbar from "./components/Navbar/Navbar";
 import Products from "./components/Products/Products";
 import Cart from "./components/Cart";
 import Wishlist from "./components/Wishlist";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Login from "./components/Login/Login";
+import SignUp from "./components/SignUp/SignUp";
+
 // import PrivateRoute from "./components/PrivateRoute";
 
 import Landing from "./components/Landing/Landing";
@@ -20,6 +22,7 @@ function App() {
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
       </Routes>
     </div>
   );
