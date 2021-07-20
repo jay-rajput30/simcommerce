@@ -7,11 +7,17 @@
   pointer-events: none;
 }
 
+body {
+  height: 100vh;
+  overflow-x: hidden;
+  width: 100vw;
+}
+/* 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
-}
+} */
 
 .App-header {
   background-color: #282c34;
@@ -26,6 +32,13 @@
 
 .App-link {
   color: #61dafb;
+}
+
+.nav--items {
+  padding: var(--space-2);
+  border: 2px solid red;
+  position: fixed;
+  bottom: 0px;
 }
 
 @keyframes App-logo-spin {

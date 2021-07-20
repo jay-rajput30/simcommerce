@@ -10,6 +10,7 @@ import SignUp from "./components/SignUp/SignUp";
 // import PrivateRoute from "./components/PrivateRoute";
 
 import Landing from "./components/Landing/Landing";
+import NavItems from "./components/NavItems/NavItems";
 function App() {
   const [route, setRoute] = useState("product");
 
@@ -24,6 +25,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
       </Routes>
+      <NavItems className="nav--items" />
     </div>
   );
 }
