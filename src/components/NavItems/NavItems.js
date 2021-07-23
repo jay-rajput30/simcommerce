@@ -1,51 +1,31 @@
 import "./NavItems.css";
 import { FaHome, FaSearch, FaHeart, FaShoppingCart } from "react-icons/fa";
+import { IconContext } from "react-icons";
+import { NavLink } from "react-router-dom";
 
 const NavItems = () => {
   return (
     <div className="nav--items--container">
-      <div className="nav--items">
-        <FaHome
-          className="nav--item home--item"
-          style={{
-            border: "2px solid gray",
-            marginLeft: "1rem",
-            padding: "1rem",
-            width: "1rem",
-            color: "#4338ca",
-          }}
-        />
-        <FaSearch
-          className="nav--item search--item"
-          style={{
-            border: "2px solid gray",
-            marginLeft: "1rem",
-            padding: "1rem",
-            width: "1rem",
-            color: "#4338ca",
-          }}
-        />
-        <FaHeart
-          className="nav--item heart--item"
-          style={{
-            border: "2px solid gray",
-            marginLeft: "1rem",
-            padding: "1rem",
-            width: "1rem",
-            color: "#4338ca",
-          }}
-        />
-        <FaShoppingCart
-          className="nav--item cart--item"
-          style={{
-            border: "2px solid gray",
-            marginLeft: "1rem",
-            padding: "1rem",
-            width: "1rem",
-            color: "#4338ca",
-          }}
-        />
-      </div>
+      <IconContext.Provider value={{ className: "nav--item" }}>
+        <NavLink activeClassName="active--link" to="/">
+          <FaHome />
+        </NavLink>
+      </IconContext.Provider>
+      <IconContext.Provider value={{ className: "nav--item" }}>
+        <NavLink activeClassName="active--link" to="/product">
+          <FaSearch />
+        </NavLink>
+      </IconContext.Provider>
+      <IconContext.Provider value={{ className: "nav--item" }}>
+        <NavLink activeClassName="active--link" to="/wishlist">
+          <FaHeart />
+        </NavLink>
+      </IconContext.Provider>
+      <IconContext.Provider value={{ className: "nav--item" }}>
+        <NavLink activeClassName="active--link" to="/cart">
+          <FaShoppingCart />
+        </NavLink>
+      </IconContext.Provider>
     </div>
   );
 };

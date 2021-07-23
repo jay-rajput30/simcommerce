@@ -3,11 +3,10 @@ import Products from "../Products/Products";
 import Wishlist from "../Wishlist";
 import Cart from "../Cart";
 import "./Navbar.css";
-
 import { FaBars } from "react-icons/fa";
 import { MdClose } from "react-icons/md";
-
 import { useState } from "react";
+import NavItems from "../NavItems/NavItems";
 
 const Navbar = ({ route, setRoute }) => {
   const [toggleBar, setToggleBar] = useState(true);
@@ -31,11 +30,11 @@ const Navbar = ({ route, setRoute }) => {
             SimCommerce
           </NavLink>
         </h3>
-        <FaBars className="bar--icon" onClick={toggleHandler} />
+        {/* <FaBars className="bar--icon" onClick={toggleHandler} /> */}
       </div>
-
-      <ul className={`${toggleBar ? "nav--list show" : "nav--list"}`}>
-        <li onClick={() => setRoute("product")} className="nav--items">
+      {/* <NavItems /> */}
+      {/* <ul className={`${toggleBar ? "nav--list show" : "nav--list"}`}> */}
+      {/* <li onClick={() => setRoute("product")} className="nav--items">
           <NavLink activeClassName="active--link" to="/product">
             product
           </NavLink>
@@ -54,8 +53,8 @@ const Navbar = ({ route, setRoute }) => {
           <NavLink activeClassName="active--link" to="/login">
             Login
           </NavLink>
-        </li>
-      </ul>
+        </li> */}
+      {/* </ul> */}
     </nav>
   );
 };

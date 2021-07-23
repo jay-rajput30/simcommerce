@@ -119,7 +119,11 @@ const Products = ({ route, setRoute }) => {
           return (
             <article className="card">
               <div className="card--top">
-                <img src={item["imageUrl"]} alt={`${item["imageUrl"]}`} />
+                <img
+                  style={{ width: "100%", objectFit: "cover" }}
+                  src={item["imageUrl"]}
+                  alt={`${item["imageUrl"]}`}
+                />
                 <span className="card--top--text">{item.name}</span>
               </div>
               <span

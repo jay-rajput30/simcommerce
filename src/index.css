@@ -1,37 +1,29 @@
 @import url("https://simcom.netlify.app/style.css");
 
-*{
-  padding: 0; 
+* {
+  padding: 0;
   margin: 0;
   box-sizing: border-box;
 }
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  width: 100vw;
+  /* height: 100vh; */
+  overflow-x: hidden;
 }
-.badge .card--badge{
+.badge .card--badge {
   transition: transform 0.2s linear;
 }
-.badge .card--badge:focus{
+.badge .card--badge:focus {
   transform: scale(1.5);
 }
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
-
-.sticky--nav{
-  width: 100%;
-  margin: 0 ;
+.sticky--nav {
+  /* width: 100%; */
+  margin: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.cart--items{
+.cart--items {
   list-style-type: none;
   display: flex;
   flex-direction: column;
@@ -39,27 +31,27 @@ code {
   align-items: center;
 }
 
-.cart--item--container{
+.cart--item--container {
   margin-bottom: var(--space-2);
   /* border: 2px solid red; */
-  padding:  var(--space-2);
+  padding: var(--space-2);
   width: 40%;
 }
 
-.cart--item--container:first-child{
+.cart--item--container:first-child {
   margin-top: var(--space-2);
 }
-.cart--item{
+.cart--item {
   flex-grow: 1;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.cart--item > small{
+.cart--item > small {
   color: var(--main-color);
 }
-.cart--item__button-group{
+.cart--item__button-group {
   padding-left: var(--space-2);
 }
 
@@ -75,6 +67,6 @@ code {
   margin-bottom: var(--space-2);
 } */
 
-.active--link{
+.active--link {
   font-weight: bold;
 }
