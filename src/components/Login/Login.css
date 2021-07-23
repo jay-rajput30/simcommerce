@@ -25,12 +25,12 @@
 }
 .form--item {
   display: flex;
+  align-items: center;
   justify-content: center;
   width: 300px;
   margin-bottom: var(--space-2);
 }
 .button--form--item {
-  border: 2px solid red;
   display: flex;
   justify-content: center;
   padding: var(--space-1);

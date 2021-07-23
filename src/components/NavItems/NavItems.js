@@ -1,5 +1,11 @@
 import "./NavItems.css";
-import { FaHome, FaSearch, FaHeart, FaShoppingCart } from "react-icons/fa";
+import {
+  FaHome,
+  FaSearch,
+  FaHeart,
+  FaShoppingCart,
+  FaUser,
+} from "react-icons/fa";
 import { IconContext } from "react-icons";
 import { NavLink } from "react-router-dom";
 
@@ -24,6 +30,11 @@ const NavItems = () => {
       <IconContext.Provider value={{ className: "nav--item" }}>
         <NavLink activeClassName="active--link" to="/cart">
           <FaShoppingCart />
+        </NavLink>
+      </IconContext.Provider>
+      <IconContext.Provider value={{ className: "nav--item" }}>
+        <NavLink activeClassName="active--link" to="/login">
+          <FaUser />
         </NavLink>
       </IconContext.Provider>
     </div>
