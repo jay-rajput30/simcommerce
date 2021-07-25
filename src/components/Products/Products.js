@@ -9,19 +9,16 @@ import axios from "axios";
 const Products = ({ route, setRoute }) => {
   const [productData, setProductData] = useState([]);
 
-  const { data, sortBy, showFastDelivery, showOutOfStock, dispatch } =
-    useProduct();
+  const { wishlistItems, dataDispatch } = useData();
+  const { sortBy, showFastDelivery, dispatch } = useProduct();
 
   useEffect(() => {
     async function fetchData() {
       const { data } = await axios.get("http://localhost:3001/product");
       setProductData([...data.products]);
-      console.log("line 19", data.products);
     }
     fetchData();
   }, []);
-
-  const { wishlistItems, cartItems, dataDispatch } = useData();
 
   const sortData = (productData, sortBy) => {
     // console.log(productData);
@@ -34,31 +31,25 @@ const Products = ({ route, setRoute }) => {
     return productData;
   };
 
-  const filterData = (productData, fastDelivery, outOfStock) => {
-    return productData
-      .filter(({ fastDelivery }) => (showFastDelivery ? fastDelivery : true))
-      .filter(({ outOfStock }) => (showOutOfStock ? outOfStock : true));
+  const filterData = (productData, fastDelivery) => {
+    return productData.filter(({ fastDelivery }) =>
+      showFastDelivery ? fastDelivery : true
+    );
   };
 
   const sortedData = sortData(productData, sortBy);
   // console.log("sorted products", sortedData);
-  let filteredData = filterData(sortedData, {
-    showFastDelivery,
-    showOutOfStock,
-  });
+  let filteredData = filterData(sortedData, { showFastDelivery });
 
   const findWishlistedItem = (item) => {
     return wishlistItems.some(
       (i) => item.id === i.id && i.isWishlisted === true
     );
-
-    // itemWishlisted ? setWishlisted(true) : setWishlisted(false);
   };
-  // console.log("line 57", productData);
   return (
     <div className="product--container">
       <section className="filter--options">
-        <div classname="price--sort">
+        <div className="price--sort">
           <div className="filter--options__item">
             {" "}
             <input
@@ -87,7 +78,7 @@ const Products = ({ route, setRoute }) => {
           {"    "}
         </div>
         <div className="delivery--sort">
-          <div className="filter--options__item">
+          {/* <div className="filter--options__item">
             <input
               onChange={() => dispatch({ type: "OUT_OF_STOCK" })}
               type="checkbox"
@@ -96,7 +87,7 @@ const Products = ({ route, setRoute }) => {
               value="out of stock"
             />
             <label htmlFor="out_of_stock">remove out of stock</label>
-          </div>
+          </div> */}
           <div className="filter--options__item">
             <input
               onChange={() => dispatch({ type: "FAST_DELIVERY" })}
@@ -107,7 +98,6 @@ const Products = ({ route, setRoute }) => {
             />
             <label htmlFor="fast_delivery">fast delivery</label>
           </div>
-          {"       "}
         </div>
       </section>
 
@@ -154,7 +144,11 @@ const Products = ({ route, setRoute }) => {
                       dataDispatch({ type: "WISHLIST_ADD", payload: item });
                     }
                   }}
-                  className="button primary--button"
+                  className={`${
+                    item.inStock === true
+                      ? "button primary--button"
+                      : "button primary--button disabled"
+                  }`}
                 >
                   {findWishlistedItem(item)
                     ? "go to wishlist"

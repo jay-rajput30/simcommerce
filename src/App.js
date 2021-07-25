@@ -11,17 +11,24 @@ import SignUp from "./components/SignUp/SignUp";
 
 import Landing from "./components/Landing/Landing";
 import NavItems from "./components/NavItems/NavItems";
+import PrivateRoute from "./components/PrivateRoute";
+import { useAuth } from "./AuthProvider";
+import WelcomeUser from "./components/WelcomeUser/WelcomeUser";
 function App() {
   const [route, setRoute] = useState("product");
-
+  const { loggedIn } = useAuth();
   return (
     <div className="App">
       <Navbar route={route} setRoute={setRoute} />
+      {loggedIn.loginStatus === true ? (
+        <WelcomeUser username={loggedIn.username} />
+      ) : null}
+      {/* <span>{loggedIn.loginStatus}</span> */}
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/product" element={<Products />} />
-        <Route path="/wishlist" element={<Wishlist />} />
-        <Route path="/cart" element={<Cart />} />
+        <PrivateRoute path="/wishlist" element={<Wishlist />} />
+        <PrivateRoute path="/cart" element={<Cart />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
       </Routes>

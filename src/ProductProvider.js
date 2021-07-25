@@ -42,8 +42,6 @@ const reducerFunc = (state, action) => {
   switch (action.type) {
     case "SORT":
       return { ...state, sortBy: action.payload };
-    case "OUT_OF_STOCK":
-      return { ...state, showOutOfStock: !state.showOutOfStock };
     case "FAST_DELIVERY":
       return { ...state, showFastDelivery: !state.showFastDelivery };
     default:
@@ -52,21 +50,16 @@ const reducerFunc = (state, action) => {
 };
 
 export const ProductProvider = ({ children }) => {
-  const [{ sortBy, showFastDelivery, showOutOfStock }, dispatch] = useReducer(
-    reducerFunc,
-    {
-      sortBy: null,
-      showFastDelivery: false,
-      showOutOfStock: false,
-    }
-  );
+  const [{ sortBy, showFastDelivery }, dispatch] = useReducer(reducerFunc, {
+    sortBy: null,
+    showFastDelivery: false,
+  });
   return (
     <productContext.Provider
       value={{
         data,
         sortBy,
         showFastDelivery,
-        showOutOfStock,
         dispatch,
       }}
     >

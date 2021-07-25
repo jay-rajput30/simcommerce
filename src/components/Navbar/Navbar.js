@@ -1,19 +1,19 @@
 import { NavLink } from "react-router-dom";
-import Products from "../Products/Products";
-import Wishlist from "../Wishlist";
-import Cart from "../Cart";
+// import Products from "../Products/Products";
+// import Wishlist from "../Wishlist";
+// import Cart from "../Cart";
 import "./Navbar.css";
-import { FaBars } from "react-icons/fa";
-import { MdClose } from "react-icons/md";
-import { useState } from "react";
-import NavItems from "../NavItems/NavItems";
+// import { FaBars } from "react-icons/fa";
+// import { MdClose } from "react-icons/md";
+// import { useState } from "react";
+// import NavItems from "../NavItems/NavItems";
 
 const Navbar = ({ route, setRoute }) => {
-  const [toggleBar, setToggleBar] = useState(true);
+  // const [toggleBar, setToggleBar] = useState(true);
 
-  const toggleHandler = () => {
-    setToggleBar(!toggleBar);
-  };
+  // const toggleHandler = () => {
+  //   setToggleBar(!toggleBar);
+  // };
   return (
     <nav className="sticky--nav navbar">
       <div className="nav--header">

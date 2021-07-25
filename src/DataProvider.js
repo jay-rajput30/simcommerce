@@ -5,7 +5,9 @@ export const dataContext = createContext();
 const dataReducerFunc = (state, { type, payload }) => {
   switch (type) {
     case "WISHLIST_ADD": {
+      console.log("wishlist add called");
       let newPayload = { ...payload, quantity: 1, isWishlisted: true };
+
       const wishlistItemAlreadyPresent = state.wishlistItems.some(
         (item) => item.id === payload.id
       );
@@ -25,7 +27,7 @@ const dataReducerFunc = (state, { type, payload }) => {
       return {
         ...state,
         wishlistItems: state.wishlistItems.filter(
-          (item) => item.id != payload.id
+          (item) => item.id !== payload.id
         ),
       };
 
@@ -70,10 +72,10 @@ const dataReducerFunc = (state, { type, payload }) => {
 };
 
 export const DataProvider = ({ children }) => {
-  const [
-    { wishlistItems, cartItems },
-    dataDispatch,
-  ] = useReducer(dataReducerFunc, { wishlistItems: [], cartItems: [] });
+  const [{ wishlistItems, cartItems }, dataDispatch] = useReducer(
+    dataReducerFunc,
+    { wishlistItems: [], cartItems: [] }
+  );
   return (
     <dataContext.Provider value={{ wishlistItems, cartItems, dataDispatch }}>
       {children}

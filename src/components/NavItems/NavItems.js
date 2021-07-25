@@ -8,8 +8,10 @@ import {
 } from "react-icons/fa";
 import { IconContext } from "react-icons";
 import { NavLink } from "react-router-dom";
+import { useAuth } from "../../AuthProvider";
 
 const NavItems = () => {
+  const { loggedIn } = useAuth();
   return (
     <div className="nav--items--container">
       <IconContext.Provider value={{ className: "nav--item" }}>
@@ -32,11 +34,13 @@ const NavItems = () => {
           <FaShoppingCart />
         </NavLink>
       </IconContext.Provider>
-      <IconContext.Provider value={{ className: "nav--item" }}>
-        <NavLink activeClassName="active--link" to="/login">
-          <FaUser />
-        </NavLink>
-      </IconContext.Provider>
+      {loggedIn.status || (
+        <IconContext.Provider value={{ className: "nav--item" }}>
+          <NavLink activeClassName="active--link" to="/login">
+            <FaUser />
+          </NavLink>
+        </IconContext.Provider>
+      )}
     </div>
   );
 };

@@ -48,6 +48,11 @@
     width: 100vw;
   }
 }
+.button--primary.disabled {
+  display: none;
+  user-select: none;
+  opacity: 90%;
+}
 
 @media only screen and (max-width: 375px) {
   .filter--options {
