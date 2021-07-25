@@ -16,13 +16,11 @@ import { useAuth } from "./AuthProvider";
 import WelcomeUser from "./components/WelcomeUser/WelcomeUser";
 function App() {
   const [route, setRoute] = useState("product");
-  const { loggedIn } = useAuth();
+  const { loginStatus, username } = useAuth();
   return (
     <div className="App">
       <Navbar route={route} setRoute={setRoute} />
-      {loggedIn.loginStatus === true ? (
-        <WelcomeUser username={loggedIn.username} />
-      ) : null}
+      {loginStatus === true ? <WelcomeUser username={username} /> : null}
       {/* <span>{loggedIn.loginStatus}</span> */}
       <Routes>
         <Route path="/" element={<Landing />} />

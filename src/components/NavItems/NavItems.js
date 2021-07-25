@@ -11,7 +11,7 @@ import { NavLink } from "react-router-dom";
 import { useAuth } from "../../AuthProvider";
 
 const NavItems = () => {
-  const { loggedIn } = useAuth();
+  const { loginStatus } = useAuth();
   return (
     <div className="nav--items--container">
       <IconContext.Provider value={{ className: "nav--item" }}>
@@ -34,7 +34,7 @@ const NavItems = () => {
           <FaShoppingCart />
         </NavLink>
       </IconContext.Provider>
-      {loggedIn.status || (
+      {loginStatus || (
         <IconContext.Provider value={{ className: "nav--item" }}>
           <NavLink activeClassName="active--link" to="/login">
             <FaUser />

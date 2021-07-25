@@ -1,16 +1,47 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useReducer } from "react";
 
 export const loginContext = createContext();
 
+const reducerFunc = (state, { type, payload }) => {
+  switch (type) {
+    case "LOG_OFF":
+      return { ...state, loginStatus: false };
+
+    case "LOG_ON":
+      return { ...state, loginStatus: true };
+
+    // case "SET_WISHLIST":
+    //   return { ...state, wishlistId: payload };
+    // case "SET_CART":
+    //   return { ...state, cartId: payload };
+    // case "SET_USERNAME":
+    //   return { ...state, username: payload };
+    // case "SET_PASSWORD":
+    //   return { ...state, password: payload };
+    case "SET_USERID":
+      return { ...state, userId: payload };
+    default:
+      return state;
+  }
+  // return action.type === true
+  //   ? { ...state, loginStatus: true }
+  //   : { ...state, loginStatus: false };
+};
+
 const AuthProvider = ({ children }) => {
-  const [loggedIn, setLoggedIn] = useState({
+  const [{ loginStatus, userId }, authDispatch] = useReducer(reducerFunc, {
     loginStatus: false,
-    username: "test",
-    password: "test",
+    userId: null,
   });
 
   return (
-    <loginContext.Provider value={{ loggedIn, setLoggedIn }}>
+    <loginContext.Provider
+      value={{
+        loginStatus,
+        userId,
+        authDispatch,
+      }}
+    >
       {children}
     </loginContext.Provider>
   );

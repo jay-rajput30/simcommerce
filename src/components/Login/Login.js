@@ -4,37 +4,69 @@ import "./Login.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../../AuthProvider";
 import axios from "axios";
+import { useEffect, useState } from "react";
 
 const Login = () => {
-  const { loggedIn, setLoggedIn } = useAuth();
+  const { loginStatus, authDispatch } = useAuth();
+  const [inputUser, setInputUser] = useState({
+    username: null,
+    password: null,
+  });
+  const [allUsers, setAllUsers] = useState([]);
+  const navigate = useNavigate([]);
 
-  const navigate = useNavigate();
-  // const { loggedin, loginUserWithCredentials, logoutUser  } = useAuth();
-  // const { state } = useLocation();
-  // const navigate = useNavigate();
+  useEffect(() => {
+    async function getUsers() {
+      try {
+        let { data } = await axios.get("http://localhost:3001/user/");
+        setAllUsers([...allUsers, data.users]);
+      } catch (e) {
+        console.error(e);
+      }
+    }
+    getUsers();
+  }, []);
 
-  // const loginHandler = () => {
-  //   if (!loggedin) {
-  //     loginUserWithCredentials("userone", 123);
-  //     // navigate(state?.from ? state.from : "/login");
-  //   }
-  //   logoutUser();
+  // const setLoginDetails = (username, password) => {
+  //   // authDispatch({ type: "SET_USERNAME", payload: username });
+  //   // authDispatch({ type: "SET_PASSWORD", payload: password });
+  // };
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
   // };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    e.target[0].value === loggedIn.username &&
-    e.target[1].value === loggedIn.password
-      ? setLoggedIn({ ...loggedIn, loginStatus: true })
-      : setLoggedIn(setLoggedIn({ ...loggedIn, loginStatus: false }));
-    loggedIn || navigate("/");
-  };
+  // const getDetails = (userId, username, password) => {
+  //   const wishlist = axios.get(`http://localhost:3001/wishlist/${userId}`);
+  //   const cart = axios.get(`http://localhost:3001/cart/${userId}`);
+  //   authDispatch({ type: "SET_WISHLIST", payload: wishlist });
+  //   authDispatch({ type: "SET_CART", payload: cart });
+  // };
 
-  const loginHandler = async () => {
+  const loginClickHandler = async () => {
     try {
-      let data = await axios.get("http://localhost:3001/user/");
-      const { success, users } = data.data;
-      console.log(users);
+      const loggedInUser = allUsers[0].filter(
+        (user) => user.name === inputUser.username
+        // &&
+        // user.password === inputUser.password
+      );
+      console.log(inputUser.username);
+      authDispatch({ type: "SET_USERID", payload: loggedInUser[0]._id });
+
+      inputUser.username === loggedInUser[0].name &&
+      inputUser.password === loggedInUser[0].password
+        ? authDispatch({ type: "LOG_ON", payload: true })
+        : console.error("incorrect credentials");
+      loginStatus || navigate("/");
+
+      // let loggedInUserData = await axios.get(
+      //   `http://localhost:3001/user/${loggedInUser[0]._id}`
+      // );
+
+      // getDetails(
+      //   loggedInUser[0]._id,
+      //   loggedInUser[0].name,
+      //   loggedInUser[0].password
+      // );
     } catch (e) {
       console.error(e);
     }
@@ -42,13 +74,16 @@ const Login = () => {
   return (
     <div className="main--container">
       <div>
-        <form className="login--container" onSubmit={handleSubmit}>
+        <form className="login--container">
           <div className="form--item">
             <label className="username--label">username</label>
             <input
               type="text"
               // id="outline--input"
               className="username--input"
+              onChange={(e) => {
+                setInputUser({ ...inputUser, username: e.target.value });
+              }}
             />
           </div>
           <div className="form--item">
@@ -57,13 +92,19 @@ const Login = () => {
               type="password"
               // id="outline--input"
               className=" password--input"
+              onChange={(e) => {
+                setInputUser({ ...inputUser, password: e.target.value });
+              }}
             />
           </div>
           <div
             style={{ display: "flex", justifyContent: "center" }}
             // className="form--item button--form--item"
           >
-            <button onClick={loginHandler} className="button primary--button">
+            <button
+              onClick={loginClickHandler}
+              className="button primary--button"
+            >
               login
             </button>
           </div>
@@ -73,7 +114,7 @@ const Login = () => {
           >
             <small>
               Haven't singed up yet? <NavLink to="/signup">sign up</NavLink>
-              {loggedIn}
+              {loginStatus}
             </small>
           </div>
         </form>

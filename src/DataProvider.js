@@ -30,6 +30,9 @@ const dataReducerFunc = (state, { type, payload }) => {
           (item) => item.id !== payload.id
         ),
       };
+    case "WISHLIST": {
+      return { ...state, wishlist: [...state.wishlist, payload] };
+    }
 
     case "CART_ADD": {
       let newPayload = { ...payload, quantity: 1 };

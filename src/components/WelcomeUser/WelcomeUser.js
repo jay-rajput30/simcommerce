@@ -5,10 +5,11 @@ import "./WelcomeUser.css";
 import { useNavigate } from "react-router";
 
 const WelcomeUser = ({ username }) => {
-  const { setLoggedIn } = useAuth();
+  const { authDispatch } = useAuth();
   const navigate = useNavigate();
+
   const logOffClickHandler = () => {
-    setLoggedIn(false);
+    authDispatch({ type: "LOG_OFF", payload: false });
     navigate("/login");
   };
   return (
