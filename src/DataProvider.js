@@ -8,7 +8,6 @@ const dataReducerFunc = (state, { type, payload }) => {
       return { ...state, wishlistItems: [...state.wishlistItems, payload] };
 
     case "WISHLIST_ADD": {
-      console.log("wishlist add called");
       let newPayload = { ...payload, quantity: 1, isWishlisted: true };
 
       const wishlistItemAlreadyPresent = state.wishlistItems.some(

@@ -7,9 +7,9 @@ import { useProduct } from "../../ProductProvider";
 
 const Wishlist = ({ route, setRoute }) => {
   const { productData } = useProduct();
-  const { wishlistItems, dataDispatch } = useData();
+  const { dataDispatch } = useData();
   const [fetchWishlist, setFetchWishlist] = useState([]);
-  const { userId } = useAuth();
+  const { userId, authDispatch } = useAuth();
   useEffect(() => {
     async function getwishlist() {
       try {
@@ -17,6 +17,10 @@ const Wishlist = ({ route, setRoute }) => {
         const wishlistProducts = data.data.wishlistItem.products;
         setFetchWishlist([...wishlistProducts]);
         dataDispatch({ type: "LOAD_WISHLIST", payload: fetchWishlist });
+        authDispatch({
+          type: "SET_WISHLISTID",
+          payload: data.data.wishlistItem._id,
+        });
       } catch (e) {
         console.error(e);
       }
@@ -24,6 +28,7 @@ const Wishlist = ({ route, setRoute }) => {
 
     getwishlist();
   }, []);
+
   const userWishlist = fetchWishlist.map((item) =>
     productData.find((productItem) => (productItem._id = item))
   );
@@ -43,7 +48,7 @@ const Wishlist = ({ route, setRoute }) => {
               </div>
 
               <button
-                onClick={() => {
+                onClick={async () => {
                   dataDispatch({ type: "CART_ADD", payload: item });
                 }}
                 className="button primary--button"

@@ -2,10 +2,12 @@ import "./ProductCard.css";
 import { AiOutlineHeart } from "react-icons/ai";
 import { FcLike } from "react-icons/fc";
 import { useData } from "../../DataProvider";
+import axios from "axios";
+import { useAuth } from "../../AuthProvider";
 
 const ProductCard = ({ item }) => {
   const { wishlistItems, dataDispatch } = useData();
-
+  const { wishlistId } = useAuth();
   const findWishlistedItem = (item) => {
     return wishlistItems.some(
       (i) => item.id === i.id && i.isWishlisted === true
@@ -26,7 +28,7 @@ const ProductCard = ({ item }) => {
         style={{ backgroundColor: "white", background: "transparent" }}
         className="badge card--badge"
         onClick={() => {
-          if (item.inStock) {
+          if (item.outOfStock) {
             dataDispatch({ type: "WISHLIST_ADD", payload: item });
           }
         }}
@@ -46,8 +48,20 @@ const ProductCard = ({ item }) => {
 
         <button
           onClick={() => {
-            if (item.inStock) {
+            // console.log(item.outOfStock, "inside button click");
+            if (item.outOfStock) {
               dataDispatch({ type: "WISHLIST_ADD", payload: item });
+
+              try {
+                const updateWishList = axios.post(
+                  `http://localhost:3001/wishlist/S{wishlistId}`,
+                  { productId: item._id }
+                );
+
+                console.log({ updateWishList, productId: item._id });
+              } catch (e) {
+                console.error(e);
+              }
             }
           }}
           className={`${

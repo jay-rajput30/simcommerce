@@ -20,6 +20,12 @@ const reducerFunc = (state, { type, payload }) => {
     //   return { ...state, password: payload };
     case "SET_USERID":
       return { ...state, userId: payload };
+
+    case "SET_WISHLISTID":
+      return { ...state, wishlistId: payload };
+
+    case "SET_CARTID":
+      return { ...state, wishlistId: payload };
     default:
       return state;
   }
@@ -29,16 +35,19 @@ const reducerFunc = (state, { type, payload }) => {
 };
 
 const AuthProvider = ({ children }) => {
-  const [{ loginStatus, userId }, authDispatch] = useReducer(reducerFunc, {
-    loginStatus: false,
-    userId: null,
-  });
+  const [{ loginStatus, userId, wishlistId, cartId }, authDispatch] =
+    useReducer(reducerFunc, {
+      loginStatus: false,
+      userId: null,
+    });
 
   return (
     <loginContext.Provider
       value={{
         loginStatus,
         userId,
+        wishlistId,
+        cartId,
         authDispatch,
       }}
     >

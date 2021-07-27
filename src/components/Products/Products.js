@@ -43,7 +43,7 @@ const Products = ({ route, setRoute }) => {
   };
   return (
     <div className="product--container">
-      {console.log({ productData, filterData })}
+      {/* {console.log({ productData, filterData })} */}
       <section className="filter--options">
         <div className="price--sort">
           <div className="filter--options__item">
