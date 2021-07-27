@@ -1,27 +1,23 @@
-import { useState, useEffect } from "react";
 import { useData } from "../../DataProvider";
 import { useProduct } from "../../ProductProvider";
 import "./Products.css";
 import { AiOutlineHeart } from "react-icons/ai";
 import { FcLike } from "react-icons/fc";
-import axios from "axios";
+import ProductCard from "../ProductCard/ProductCard";
 
 const Products = ({ route, setRoute }) => {
-  const [productData, setProductData] = useState([]);
-
   const { wishlistItems, dataDispatch } = useData();
-  const { sortBy, showFastDelivery, dispatch } = useProduct();
+  const { productData, sortBy, showFastDelivery, dispatch } = useProduct();
 
-  useEffect(() => {
-    async function fetchData() {
-      const { data } = await axios.get("http://localhost:3001/product");
-      setProductData([...data.products]);
-    }
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     const { data } = await axios.get("http://localhost:3001/product");
+  //     setProductData([...data.products]);
+  //   }
+  //   fetchData();
+  // }, []);
 
   const sortData = (productData, sortBy) => {
-    // console.log(productData);
     if (sortBy && sortBy === "HIGH_TO_LOW") {
       return productData.sort((a, b) => b["price"] - a["price"]);
     }
@@ -38,7 +34,6 @@ const Products = ({ route, setRoute }) => {
   };
 
   const sortedData = sortData(productData, sortBy);
-  // console.log("sorted products", sortedData);
   let filteredData = filterData(sortedData, { showFastDelivery });
 
   const findWishlistedItem = (item) => {
@@ -48,6 +43,7 @@ const Products = ({ route, setRoute }) => {
   };
   return (
     <div className="product--container">
+      {console.log({ productData, filterData })}
       <section className="filter--options">
         <div className="price--sort">
           <div className="filter--options__item">
@@ -107,55 +103,56 @@ const Products = ({ route, setRoute }) => {
             // console.log(item);
           }
           return (
-            <article className="card">
-              <div className="card--top">
-                <img
-                  style={{ width: "100%", objectFit: "cover" }}
-                  src={item["imageUrl"]}
-                  alt={`${item["imageUrl"]}`}
-                />
-                <span className="card--top--text">{item.name}</span>
-              </div>
-              <span
-                style={{ backgroundColor: "white", background: "transparent" }}
-                className="badge card--badge"
-                onClick={() => {
-                  if (item.inStock) {
-                    dataDispatch({ type: "WISHLIST_ADD", payload: item });
-                  }
-                }}
-              >
-                {findWishlistedItem(item) ? (
-                  <FcLike style={{ fontSize: "1.5rem" }} />
-                ) : (
-                  <AiOutlineHeart style={{ fontSize: "1.5rem" }} />
-                )}
-              </span>
-              <div className="card--bottom">
-                <div>
-                  <p>{item["price"]}</p>
-                  <p>{item.outOfStock ? "out of stock" : "in stock"}</p>
-                  <p>{item.fastDelivery ? "fast delivery" : null}</p>
-                </div>
+            <ProductCard item={item} />
+            // <article className="card">
+            //   <div className="card--top">
+            //     <img
+            //       style={{ width: "100%", objectFit: "cover" }}
+            //       src={item["imageUrl"]}
+            //       alt={`${item["imageUrl"]}`}
+            //     />
+            //     <span className="card--top--text">{item.name}</span>
+            //   </div>
+            //   <span
+            //     style={{ backgroundColor: "white", background: "transparent" }}
+            //     className="badge card--badge"
+            //     onClick={() => {
+            //       if (item.inStock) {
+            //         dataDispatch({ type: "WISHLIST_ADD", payload: item });
+            //       }
+            //     }}
+            //   >
+            //     {findWishlistedItem(item) ? (
+            //       <FcLike style={{ fontSize: "1.5rem" }} />
+            //     ) : (
+            //       <AiOutlineHeart style={{ fontSize: "1.5rem" }} />
+            //     )}
+            //   </span>
+            //   <div className="card--bottom">
+            //     <div>
+            //       <p>{item["price"]}</p>
+            //       <p>{item.outOfStock ? "out of stock" : "in stock"}</p>
+            //       <p>{item.fastDelivery ? "fast delivery" : null}</p>
+            //     </div>
 
-                <button
-                  onClick={() => {
-                    if (item.inStock) {
-                      dataDispatch({ type: "WISHLIST_ADD", payload: item });
-                    }
-                  }}
-                  className={`${
-                    item.inStock === true
-                      ? "button primary--button"
-                      : "button primary--button disabled"
-                  }`}
-                >
-                  {findWishlistedItem(item)
-                    ? "go to wishlist"
-                    : "add to wishlist"}
-                </button>
-              </div>
-            </article>
+            //     <button
+            //       onClick={() => {
+            //         if (item.inStock) {
+            //           dataDispatch({ type: "WISHLIST_ADD", payload: item });
+            //         }
+            //       }}
+            //       className={`${
+            //         item.inStock === true
+            //           ? "button primary--button"
+            //           : "button primary--button disabled"
+            //       }`}
+            //     >
+            //       {findWishlistedItem(item)
+            //         ? "go to wishlist"
+            //         : "add to wishlist"}
+            //     </button>
+            //   </div>
+            // </article>
           );
         })}
       </section>

@@ -1,40 +1,6 @@
 import { createContext, useContext, useReducer } from "react";
-import faker from "faker";
-
-const data = [...Array(50)].map((item) => ({
-  id: faker.random.uuid(),
-  name: faker.commerce.productName(),
-  image: faker.random.image(),
-  price: faker.commerce.price(),
-  quantity: 0,
-  material: faker.commerce.productMaterial(),
-  brand: faker.lorem.word(),
-  inStock: faker.datatype.boolean(),
-  fastDelivery: faker.datatype.boolean(),
-  isWishlisted: false,
-  addedToCart: false,
-  ratings: faker.random.arrayElement([1, 2, 3, 4, 5]),
-  offer: faker.random.arrayElement([
-    "Save 50",
-    "70% bonanza",
-    "Republic Day Sale",
-  ]),
-  idealFor: faker.random.arrayElement([
-    "Men",
-    "Women",
-    "Girl",
-    "Boy",
-    "Senior",
-  ]),
-  level: faker.random.arrayElement([
-    "beginner",
-    "amateur",
-    "intermediate",
-    "advanced",
-    "professional",
-  ]),
-  color: faker.commerce.color(),
-}));
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const productContext = createContext();
 
@@ -50,14 +16,25 @@ const reducerFunc = (state, action) => {
 };
 
 export const ProductProvider = ({ children }) => {
+  const [productData, setProductData] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      const { data } = await axios.get("http://localhost:3001/product");
+      setProductData([...data.products]);
+    }
+    fetchData();
+  }, []);
+
   const [{ sortBy, showFastDelivery }, dispatch] = useReducer(reducerFunc, {
     sortBy: null,
     showFastDelivery: false,
   });
+
   return (
     <productContext.Provider
       value={{
-        data,
+        productData,
         sortBy,
         showFastDelivery,
         dispatch,

@@ -1,17 +1,22 @@
 import axios from "axios";
-import { useEffect } from "react";
-import { useAuth } from "../AuthProvider";
-import { useData } from "../DataProvider";
-// import { useWishlist } from "../WishlistProvider";
+import { useEffect, useState } from "react";
+import { useAuth } from "../../AuthProvider";
+import { useData } from "../../DataProvider";
+import { useProduct } from "../../ProductProvider";
+// import "./Wish"
 
 const Wishlist = ({ route, setRoute }) => {
-  const { wishlistItems, cartItems, dataDispatch } = useData();
+  const { productData } = useProduct();
+  const { wishlistItems, dataDispatch } = useData();
+  const [fetchWishlist, setFetchWishlist] = useState([]);
   const { userId } = useAuth();
   useEffect(() => {
     async function getwishlist() {
       try {
         let data = await axios.get(`http://localhost:3001/wishlist/${userId}`);
-        console.log(data);
+        const wishlistProducts = data.data.wishlistItem.products;
+        setFetchWishlist([...wishlistProducts]);
+        dataDispatch({ type: "LOAD_WISHLIST", payload: fetchWishlist });
       } catch (e) {
         console.error(e);
       }
@@ -19,13 +24,16 @@ const Wishlist = ({ route, setRoute }) => {
 
     getwishlist();
   }, []);
+  const userWishlist = fetchWishlist.map((item) =>
+    productData.find((productItem) => (productItem._id = item))
+  );
   return (
     <section>
-      {wishlistItems.map((item) => {
+      {userWishlist.map((item) => {
         return (
           <article className="card">
             <div className="card--top">
-              <img src={item.image} alt={`${item.image}`} />
+              <img src={item.imageUrl} alt={`${item.imageUrl}`} />
               <span className="card--top--text">{item.name}</span>
             </div>
 
@@ -54,7 +62,6 @@ const Wishlist = ({ route, setRoute }) => {
           </article>
         );
       })}
-      {/* <h1>Total items in wishList are {wishlistItems.length}</h1> */}
     </section>
   );
 };

@@ -4,6 +4,9 @@ export const dataContext = createContext();
 
 const dataReducerFunc = (state, { type, payload }) => {
   switch (type) {
+    case "LOAD_WISHLIST":
+      return { ...state, wishlistItems: [...state.wishlistItems, payload] };
+
     case "WISHLIST_ADD": {
       console.log("wishlist add called");
       let newPayload = { ...payload, quantity: 1, isWishlisted: true };
@@ -30,9 +33,9 @@ const dataReducerFunc = (state, { type, payload }) => {
           (item) => item.id !== payload.id
         ),
       };
-    case "WISHLIST": {
-      return { ...state, wishlist: [...state.wishlist, payload] };
-    }
+    // case "WISHLIST": {
+    //   return { ...state, wishlist: [...state.wishlist, payload] };
+    // }
 
     case "CART_ADD": {
       let newPayload = { ...payload, quantity: 1 };
