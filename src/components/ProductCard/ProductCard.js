@@ -48,13 +48,13 @@ const ProductCard = ({ item }) => {
 
         <button
           onClick={() => {
-            // console.log(item.outOfStock, "inside button click");
-            if (item.outOfStock) {
+            console.log(item.outOfStock, "inside button click");
+            if (item.outOfStock === false) {
               dataDispatch({ type: "WISHLIST_ADD", payload: item });
 
               try {
                 const updateWishList = axios.post(
-                  `http://localhost:3001/wishlist/S{wishlistId}`,
+                  `http://localhost:3001/wishlist/${wishlistId}`,
                   { productId: item._id }
                 );
 
