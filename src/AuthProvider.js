@@ -25,7 +25,7 @@ const reducerFunc = (state, { type, payload }) => {
       return { ...state, wishlistId: payload };
 
     case "SET_CARTID":
-      return { ...state, wishlistId: payload };
+      return { ...state, cartId: payload };
     default:
       return state;
   }

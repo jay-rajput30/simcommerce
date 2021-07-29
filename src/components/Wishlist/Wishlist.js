@@ -2,9 +2,9 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useAuth } from "../../AuthProvider";
 import { useData } from "../../DataProvider";
-import { useAxios } from "../../hooks/useAxios";
 import { useProduct } from "../../ProductProvider";
-// import "./Wish"
+import { deleteAxiosCall } from "../../services/deleteAxiosCall";
+import { getAxiosCall } from "../../services/getAxiosCall";
 
 const Wishlist = ({ route, setRoute }) => {
   const { productData } = useProduct();
@@ -13,39 +13,35 @@ const Wishlist = ({ route, setRoute }) => {
   const { userId, wishlistId, authDispatch } = useAuth();
 
   const URL = `http://localhost:3001/wishlist/${userId}`;
-  const { data, status, error } = useAxios(URL);
+
   useEffect(() => {
-    if (status === "pending") {
-      console.log("data is loading");
+    async function getwishlist() {
+      try {
+        let data = await getAxiosCall(URL);
+
+        const wishlistProducts = data.wishlistItem.products;
+
+        setFetchWishlist([...fetchWishlist, ...wishlistProducts]);
+        dataDispatch({ type: "LOAD_WISHLIST", payload: fetchWishlist });
+        authDispatch({
+          type: "SET_WISHLISTID",
+          payload: data.wishlistItem._id,
+        });
+      } catch (e) {
+        console.error(e);
+      }
     }
-    // async function getwishlist() {
-    //   try {
-    //     // let data = await axios.get(`http://localhost:3001/wishlist/${userId}`);
-    //     const wishlistProducts = data.data.wishlistItem.products;
-    //     console.log(data.status);
-    //     setFetchWishlist([...fetchWishlist, ...wishlistProducts]);
-    //     dataDispatch({ type: "LOAD_WISHLIST", payload: fetchWishlist });
-    //     authDispatch({
-    //       type: "SET_WISHLISTID",
-    //       payload: data.data.wishlistItem._id,
-    //     });
-    //   } catch (e) {
-    //     console.error(e);
-    //   }
-    // }
-    // getwishlist();
+    getwishlist();
   }, []);
 
   const userWishlist = fetchWishlist.map((item) =>
     productData.find((productItem) => productItem._id === item)
   );
-  console.log({ userWishlist });
   return (
     <section>
-      {console.log({ fetchWishlist })}
       {userWishlist.map((item) => {
         return (
-          <article className="card">
+          <article key={item._id} className="card">
             <div className="card--top">
               <img src={item["imageUrl"]} alt={`${item["imageUrl"]}`} />
               <span className="card--top--text">{item["name"]}</span>
@@ -68,13 +64,12 @@ const Wishlist = ({ route, setRoute }) => {
                 onClick={async () => {
                   dataDispatch({ type: "WISHLIST_REMOVE", payload: item });
                   try {
-                    const data = await axios.delete(
+                    const data = await deleteAxiosCall(
                       `http://localhost:3001/wishlist/${wishlistId}`,
                       { productId: item["_id"] }
                     );
-                    const wishlistProducts = data.data.wishlistItem.products;
-                    console.log({ wishlistProducts });
-                    // setFetchWishlist([...fetchWishlist, ...wishlistProducts]);
+                    const wishlistProducts = data.wishlistItem.products;
+                    setFetchWishlist([...wishlistProducts]);
                   } catch (e) {
                     console.error(e);
                   }

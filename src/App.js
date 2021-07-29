@@ -24,7 +24,7 @@ function App() {
       {/* <span>{loggedIn.loginStatus}</span> */}
       <Routes>
         <Route path="/" element={<Landing />} />
-        <Route path="/product" element={<Products />} />
+        <PrivateRoute path="/product" element={<Products />} />
         <PrivateRoute path="/wishlist" element={<Wishlist />} />
         <PrivateRoute path="/cart" element={<Cart />} />
         <Route path="/login" element={<Login />} />
