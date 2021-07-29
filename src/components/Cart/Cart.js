@@ -1,4 +1,4 @@
-import { useData } from "../DataProvider";
+import { useData } from "../../DataProvider";
 
 const Cart = () => {
   const { cartItems, dataDispatch } = useData();

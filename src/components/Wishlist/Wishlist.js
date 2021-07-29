@@ -9,13 +9,14 @@ const Wishlist = ({ route, setRoute }) => {
   const { productData } = useProduct();
   const { dataDispatch } = useData();
   const [fetchWishlist, setFetchWishlist] = useState([]);
-  const { userId, authDispatch } = useAuth();
+  const { userId, wishlistId, authDispatch } = useAuth();
   useEffect(() => {
     async function getwishlist() {
       try {
         let data = await axios.get(`http://localhost:3001/wishlist/${userId}`);
         const wishlistProducts = data.data.wishlistItem.products;
-        setFetchWishlist([...wishlistProducts]);
+        console.log({ wishlistProducts });
+        setFetchWishlist([...fetchWishlist, ...wishlistProducts]);
         dataDispatch({ type: "LOAD_WISHLIST", payload: fetchWishlist });
         authDispatch({
           type: "SET_WISHLISTID",
@@ -30,21 +31,23 @@ const Wishlist = ({ route, setRoute }) => {
   }, []);
 
   const userWishlist = fetchWishlist.map((item) =>
-    productData.find((productItem) => (productItem._id = item))
+    productData.find((productItem) => productItem._id === item)
   );
+  console.log({ userWishlist });
   return (
     <section>
+      {console.log({ fetchWishlist })}
       {userWishlist.map((item) => {
         return (
           <article className="card">
             <div className="card--top">
-              <img src={item.imageUrl} alt={`${item.imageUrl}`} />
-              <span className="card--top--text">{item.name}</span>
+              <img src={item["imageUrl"]} alt={`${item["imageUrl"]}`} />
+              <span className="card--top--text">{item["name"]}</span>
             </div>
 
             <div className="card--bottom">
               <div>
-                <p>{item.price}</p>
+                <p>{item["price"]}</p>
               </div>
 
               <button
@@ -56,9 +59,20 @@ const Wishlist = ({ route, setRoute }) => {
                 add to cart
               </button>
               <button
-                onClick={() =>
-                  dataDispatch({ type: "WISHLIST_REMOVE", payload: item })
-                }
+                onClick={async () => {
+                  dataDispatch({ type: "WISHLIST_REMOVE", payload: item });
+                  try {
+                    const data = await axios.delete(
+                      `http://localhost:3001/wishlist/${wishlistId}`,
+                      { productId: item["_id"] }
+                    );
+                    const wishlistProducts = data.data.wishlistItem.products;
+                    console.log({ wishlistProducts });
+                    // setFetchWishlist([...fetchWishlist, ...wishlistProducts]);
+                  } catch (e) {
+                    console.error(e);
+                  }
+                }}
                 className="button secondary--button"
               >
                 remove

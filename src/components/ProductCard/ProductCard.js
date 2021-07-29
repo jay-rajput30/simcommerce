@@ -47,18 +47,15 @@ const ProductCard = ({ item }) => {
         </div>
 
         <button
-          onClick={() => {
-            console.log(item.outOfStock, "inside button click");
+          onClick={async () => {
             if (item.outOfStock === false) {
               dataDispatch({ type: "WISHLIST_ADD", payload: item });
 
               try {
-                const updateWishList = axios.post(
+                const updateWishList = await axios.post(
                   `http://localhost:3001/wishlist/${wishlistId}`,
-                  { productId: item._id }
+                  { productId: item["_id"] }
                 );
-
-                console.log({ updateWishList, productId: item._id });
               } catch (e) {
                 console.error(e);
               }
