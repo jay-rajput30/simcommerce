@@ -37,9 +37,16 @@ const Cart = () => {
   );
 
   const totalPrice = userCart.reduce((acc, cur) => {
-    return acc + cur.quantity * cur.price;
+    return acc + cur.price;
   }, 0);
+  let quantity = 0;
+  const userCartQuantities = userCart.reduce((acc, curr) => {
+    return acc.includes(curr._id)
+      ? acc
+      : [...acc, curr, (quantity = quantity + 1)];
+  }, []);
 
+  console.log({ userCartQuantities });
   return (
     <section className="primary--section text--color__primary">
       <h2 className="text-utility heading">
@@ -50,6 +57,7 @@ const Cart = () => {
         {userCart.map((item) => {
           return (
             <li className="cart--item--container">
+              {console.log(item)}
               <div className="cart--item">
                 <div class="cart--item__details">
                   <h4>
@@ -83,7 +91,7 @@ const Cart = () => {
                   </div>
                 </div>
                 <small className="text-utility heading">
-                  (Rs.) {item.price * item.quantity}
+                  (Rs.) {item.price}
                 </small>
               </div>
             </li>
