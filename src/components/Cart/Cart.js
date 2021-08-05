@@ -37,23 +37,22 @@ const Cart = () => {
   );
 
   const totalPrice = userCart.reduce((acc, cur) => {
-    return acc + cur.price;
-  }, 0);
+    return {...acc, cur.name= cur.name};
+  }, {});
   let quantity = 0;
   const userCartQuantities = userCart.reduce((acc, curr) => {
     return acc.includes(curr._id)
       ? acc
       : [...acc, curr, (quantity = quantity + 1)];
-  }, []);
+  }, {});
 
-  console.log({ userCartQuantities });
+  console.log({ totalPrice });
   return (
     <section className="primary--section text--color__primary">
       <h2 className="text-utility heading">
         Total amount: (Rs.) {totalPrice}{" "}
       </h2>
       <ul className="cart--items">
-        {console.log(userCart)}
         {userCart.map((item) => {
           return (
             <li className="cart--item--container">
