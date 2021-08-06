@@ -36,17 +36,22 @@ const Cart = () => {
     productData.find((productItem) => productItem._id === item)
   );
 
-  const totalPrice = userCart.reduce((acc, cur) => {
-    return {...acc, cur.name= cur.name};
-  }, {});
-  let quantity = 0;
-  const userCartQuantities = userCart.reduce((acc, curr) => {
-    return acc.includes(curr._id)
-      ? acc
-      : [...acc, curr, (quantity = quantity + 1)];
-  }, {});
+  let usercartItemCount = [];
+  usercartItemCount = userCart.map(
+    (item) => userCart.filter((i) => i._id === item._id).length * item.price
+  );
 
-  console.log({ totalPrice });
+  let totalPrice = usercartItemCount.reduce(
+    (acc, curr) => (acc = acc + curr),
+    0
+  );
+  // for (const item of userCart) {
+  //   usercartItemCount[item.name] = usercartItemCount[item.name]
+  //     ? usercartItemCount[item.name] + 1
+  //     : 1;
+  // }
+
+  console.log(usercartItemCount, totalPrice);
   return (
     <section className="primary--section text--color__primary">
       <h2 className="text-utility heading">
@@ -55,12 +60,13 @@ const Cart = () => {
       <ul className="cart--items">
         {userCart.map((item) => {
           return (
-            <li className="cart--item--container">
+            <li key={item._id} className="cart--item--container">
               {console.log(item)}
               <div className="cart--item">
                 <div class="cart--item__details">
                   <h4>
-                    {item.name} X {item.quantity}
+                    {item.name} X{" "}
+                    {userCart.filter((i) => i._id === item._id).length}
                   </h4>
                   <div className="cart--item__button-group">
                     <button

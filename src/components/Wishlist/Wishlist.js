@@ -5,12 +5,13 @@ import { useData } from "../../DataProvider";
 import { useProduct } from "../../ProductProvider";
 import { deleteAxiosCall } from "../../services/deleteAxiosCall";
 import { getAxiosCall } from "../../services/getAxiosCall";
+import { updateAxiosCall } from "../../services/updateAxiosCall";
 
 const Wishlist = ({ route, setRoute }) => {
   const { productData } = useProduct();
   const { dataDispatch } = useData();
   const [fetchWishlist, setFetchWishlist] = useState([]);
-  const { userId, wishlistId, authDispatch } = useAuth();
+  const { userId, wishlistId, cartId, authDispatch } = useAuth();
 
   const URL = `http://localhost:3001/wishlist/${userId}`;
 
@@ -55,6 +56,18 @@ const Wishlist = ({ route, setRoute }) => {
               <button
                 onClick={async () => {
                   dataDispatch({ type: "CART_ADD", payload: item });
+
+                  try {
+                    console.log(cartId, item["_id"]);
+                    const data = await updateAxiosCall(
+                      `http://localhost:3001/cart/${cartId}`,
+                      item["_id"]
+                    );
+                    const cartProducts = data.cartItem.products;
+                    console.log(cartProducts);
+                  } catch (e) {
+                    console.error(e);
+                  }
                 }}
                 className="button primary--button"
               >
@@ -66,7 +79,7 @@ const Wishlist = ({ route, setRoute }) => {
                   try {
                     const data = await deleteAxiosCall(
                       `http://localhost:3001/wishlist/${wishlistId}`,
-                      { productId: item["_id"] }
+                      item["_id"]
                     );
                     const wishlistProducts = data.wishlistItem.products;
                     setFetchWishlist([...wishlistProducts]);
