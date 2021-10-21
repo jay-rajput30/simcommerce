@@ -71,7 +71,6 @@ const Products = ({ route, setRoute }) => {
             />
             <label htmlFor="low--to--high">low to high</label>
           </div>
-          {"    "}
         </div>
         <div className="delivery--sort">
           {/* <div className="filter--options__item">

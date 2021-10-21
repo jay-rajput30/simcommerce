@@ -4,7 +4,8 @@ export const getAxiosCall = async (url) => {
   try {
     const data = await axios.get(url);
     if (data.status === 200) {
-      return data.data;
+      console.log(data);
+      return { data: data.data };
     }
     return null;
   } catch (err) {

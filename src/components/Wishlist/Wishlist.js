@@ -18,11 +18,19 @@ const Wishlist = ({ route, setRoute }) => {
   useEffect(() => {
     async function getwishlist() {
       try {
-        let data = await getAxiosCall(URL);
+        let { data } = await getAxiosCall(URL);
 
-        const wishlistProducts = data.wishlistItem.products;
+        const wishlistProducts = data.wishlistItem.products.reduce(
+          (acc, cur) => {
+            acc[cur] = acc[cur] ? acc[cur] + 1 : 1;
 
-        setFetchWishlist([...fetchWishlist, ...wishlistProducts]);
+            return acc;
+          },
+          {}
+        );
+
+        setFetchWishlist([...fetchWishlist, ...Object.keys(wishlistProducts)]);
+        console.log({ fetchWishlist });
         dataDispatch({ type: "LOAD_WISHLIST", payload: fetchWishlist });
         authDispatch({
           type: "SET_WISHLISTID",
@@ -44,7 +52,11 @@ const Wishlist = ({ route, setRoute }) => {
         return (
           <article key={item._id} className="card">
             <div className="card--top">
-              <img src={item["imageUrl"]} alt={`${item["imageUrl"]}`} />
+              <img
+                style={{ width: "100%", objectFit: "cover" }}
+                src={item["imageUrl"]}
+                alt={`${item["imageUrl"]}`}
+              />
               <span className="card--top--text">{item["name"]}</span>
             </div>
 

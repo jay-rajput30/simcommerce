@@ -10,7 +10,7 @@ const ProductCard = ({ item }) => {
   const { wishlistId } = useAuth();
 
   const findWishlistedItem = (item) => {
-    return wishlistItems.some(
+    return wishlistItems.find(
       (i) => item.id === i.id && i.isWishlisted === true
     );
   };
@@ -69,7 +69,8 @@ const ProductCard = ({ item }) => {
               : "button primary--button"
           }`}
         >
-          {findWishlistedItem(item) ? "go to wishlist" : "add to wishlist"}
+          add to wishlist
+          {/* {findWishlistedItem(item) ? "go to wishlist" : "add to wishlist"} */}
         </button>
         <button
           className={`${
