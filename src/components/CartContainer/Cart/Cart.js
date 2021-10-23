@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { useAuth } from "../../AuthProvider";
-import { useData } from "../../DataProvider";
-import { useProduct } from "../../ProductProvider";
-import { getAxiosCall } from "../../services/getAxiosCall";
+import { useAuth } from "../../../AuthProvider";
+import { useData } from "../../../DataProvider";
+import { useProduct } from "../../../ProductProvider";
+import { getAxiosCall } from "../../../services/getAxiosCall";
 
 const Cart = () => {
   const { productData } = useProduct();

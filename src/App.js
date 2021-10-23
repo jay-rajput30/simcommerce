@@ -1,6 +1,6 @@
 import Navbar from "./components/Navbar/Navbar";
 import Products from "./components/Products/Products";
-import Cart from "./components/Cart/Cart";
+// import Cart from "./components/Cart/Cart";
 import Wishlist from "./components/Wishlist/Wishlist";
 import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
@@ -9,24 +9,28 @@ import SignUp from "./components/SignUp/SignUp";
 
 // import PrivateRoute from "./components/PrivateRoute";
 
-import Landing from "./components/Landing/Landing";
+// import Landing from "./components/Landing/Landing";
 import NavItems from "./components/NavItems/NavItems";
 import PrivateRoute from "./components/PrivateRoute";
 import { useAuth } from "./AuthProvider";
 import WelcomeUser from "./components/WelcomeUser/WelcomeUser";
+import Home from "./pages/Home";
+import ProductView from "./pages/ProductView";
+import WishlistPage from "./pages/WishlistPage";
+import CartPage from "./pages/CartPage";
 function App() {
   const [route, setRoute] = useState("product");
   const { loginStatus, username } = useAuth();
   return (
     <div className="App">
-      <Navbar route={route} setRoute={setRoute} />
+      {/* <Navbar route={route} setRoute={setRoute} /> */}
       {loginStatus === true ? <WelcomeUser username={username} /> : null}
       {/* <span>{loggedIn.loginStatus}</span> */}
       <Routes>
-        <Route path="/" element={<Landing />} />
-        <PrivateRoute path="/product" element={<Products />} />
-        <PrivateRoute path="/wishlist" element={<Wishlist />} />
-        <PrivateRoute path="/cart" element={<Cart />} />
+        <Route path="/" element={<Home route={route} setRoute={setRoute} />} />
+        <PrivateRoute path="/product" element={<ProductView />} />
+        <PrivateRoute path="/wishlist" element={<WishlistPage />} />
+        <PrivateRoute path="/cart" element={<CartPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
       </Routes>

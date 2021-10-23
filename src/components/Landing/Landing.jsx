@@ -1,5 +1,18 @@
+import { useNavigate } from "react-router";
+
 const Landing = () => {
-  return <h3>This is the landing component</h3>;
+  const navigate = useNavigate();
+
+  const buttonClickHandler = (e) => {
+    e.preventDefault();
+    navigate("/product");
+  };
+  return (
+    <>
+      <h3>show categories here</h3>
+      <button onClick={buttonClickHandler}>start shopping</button>
+    </>
+  );
 };
 
 export default Landing;

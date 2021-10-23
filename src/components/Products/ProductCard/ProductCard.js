@@ -1,9 +1,9 @@
 import "./ProductCard.css";
 import { AiOutlineHeart } from "react-icons/ai";
 import { FcLike } from "react-icons/fc";
-import { useData } from "../../DataProvider";
-import { useAuth } from "../../AuthProvider";
-import { updateAxiosCall } from "../../services/updateAxiosCall";
+import { useData } from "../../../DataProvider";
+import { useAuth } from "../../../AuthProvider";
+import { updateAxiosCall } from "../../../services/updateAxiosCall";
 
 const ProductCard = ({ item }) => {
   const { wishlistItems, dataDispatch } = useData();

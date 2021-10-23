@@ -1,13 +1,14 @@
-import { useData } from "../../DataProvider";
-import { useProduct } from "../../ProductProvider";
+// import { useData } from "../../DataProvider";
+import { useProduct } from "../../../ProductProvider";
 import "./Products.css";
 import { AiOutlineHeart } from "react-icons/ai";
 import { FcLike } from "react-icons/fc";
 import ProductCard from "./ProductCard/ProductCard";
+import { useData } from "../../../DataProvider";
 
 const Products = ({ route, setRoute }) => {
-  const { wishlistItems, dataDispatch } = useData();
-  const { productData, sortBy, showFastDelivery, dispatch } = useProduct();
+  const { wishlistItems } = useData();
+  const { productData, sortBy, showFastDelivery } = useProduct();
 
   // useEffect(() => {
   //   async function fetchData() {
