@@ -6,6 +6,9 @@
   color: white;
   display: none;
 }
+/* .navbar{
+  width: auto;
+} */
 
 .nav--hero {
   cursor: pointer;
@@ -17,7 +20,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  /* width: 100%; */
 }
 
 .nav--header {

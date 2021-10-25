@@ -1,0 +1,10 @@
+.btn-container{
+    margin-top: 2rem;
+    display:flex;
+    justify-content:center;
+    align-items: center;
+}
+
+h2{
+    margin: 1rem 0;
+}

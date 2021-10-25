@@ -3,7 +3,7 @@
   bottom: 0px;
   height: 3.5rem;
   padding: var(--space-1);
-  width: 100vw;
+  width: 100%;
   background-color: var(--main-color);
   display: flex;
   justify-content: space-between;
@@ -21,9 +21,10 @@
   /* border: 2px solid #4338ca; */
   margin-left: 0.5rem;
   /* padding: var(--space-1); */
-  width: 1.5rem;
-  height: 1.5rem;
+  /* width: 1.5rem;
+  height: 1.5rem; */
   color: #e0dff7;
+  display:inline-block;
 }
 
 /* nav--item {
