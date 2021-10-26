@@ -1,5 +1,5 @@
 import Navbar from "./components/Navbar/Navbar";
-import Products from "./components/Products/Products";
+// import Products from "./components/Products/Products";
 // import Cart from "./components/Cart/Cart";
 import Wishlist from "./components/Wishlist/Wishlist";
 import { useState } from "react";

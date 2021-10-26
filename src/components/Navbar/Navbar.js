@@ -60,3 +60,9 @@ const Navbar = ({ route, setRoute }) => {
 };
 
 export default Navbar;
+
+// * fix the navbar.
+
+// 1. remove the current navbar icon component
+// 2. navbar with navlinks on top on desktop view.
+// 3. navbar items appear on a click of button on mobile view.

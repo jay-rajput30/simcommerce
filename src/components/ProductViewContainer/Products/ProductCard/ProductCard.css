@@ -2,3 +2,9 @@
   opacity: 0.2;
   user-select: none;
 }
+
+@media only screen and (max-width: 786px) {
+  .card {
+    margin: var(--space-2) 0;
+  }
+}

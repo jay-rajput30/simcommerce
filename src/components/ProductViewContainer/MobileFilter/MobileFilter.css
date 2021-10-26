@@ -1,7 +1,16 @@
-.filter--options {
-  padding: var(--space-1) var(--space-2);
+.filter--container {
+  height: 50%;
+  background-color: #fff;
   position: fixed;
-  margin-top: 8rem;
+  width: 100%;
+  bottom: 0;
+}
+
+.mobile--filter--options {
+  padding: var(--space-1) var(--space-2);
+  margin-left: auto;
+  margin-right: auto;
+  /* margin-top: 8rem; */
   width: 15rem;
   padding: 2rem 1rem;
 }
@@ -9,7 +18,7 @@ label {
   margin-left: 0.5rem;
 }
 
-.filter--options__item {
+.mobile--filter--options__item {
   padding: 1rem 2.7rem;
 }
 legend {
@@ -19,10 +28,4 @@ legend {
   background-color: var(--main-color);
   color: white;
   padding: 0.7rem;
-}
-
-@media only screen and (max-width: 375px) {
-  .filter--options {
-    display: none;
-  }
 }
