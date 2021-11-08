@@ -30,7 +30,6 @@ const Wishlist = ({ route, setRoute }) => {
         );
 
         setFetchWishlist([...fetchWishlist, ...Object.keys(wishlistProducts)]);
-        console.log({ fetchWishlist });
         dataDispatch({ type: "LOAD_WISHLIST", payload: fetchWishlist });
         authDispatch({
           type: "SET_WISHLISTID",

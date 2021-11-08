@@ -1,8 +1,10 @@
 .product--view--container {
-  border: 2px solid greenyellow;
+  /* border: 2px solid greenyellow; */
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .floating--button {
@@ -17,7 +19,7 @@
     width: 58px;
     font-size: 1.5rem;
     position: fixed;
-    bottom: 20px;
-    right: 0px;
+    bottom: 50px;
+    right: 20px;
   }
 }

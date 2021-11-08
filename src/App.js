@@ -33,6 +33,7 @@ function App() {
         <PrivateRoute path="/cart" element={<CartPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
+        {/* <Route path="/product/:id" element={<ProductDetails/>} */}
       </Routes>
       <NavItems className="nav--items" />
     </div>

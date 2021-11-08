@@ -5,6 +5,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../../AuthProvider";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { getAxiosCall } from "../../services/getAxiosCall";
 
 const Login = () => {
   const { loginStatus, authDispatch } = useAuth();
@@ -20,6 +21,14 @@ const Login = () => {
       try {
         let { data } = await axios.get("http://localhost:3001/user/");
         setAllUsers([...allUsers, data.users]);
+
+        // const { data } = await getAxiosCall(
+        //   `http://localhost:3001/cart/${loggedInUser[0]._id}`
+        // );
+        // authDispatch({
+        //   type: "SET_CARTID",
+        //   payload: data.cartItem._id,
+        // });
       } catch (e) {
         console.error(e);
       }
@@ -49,14 +58,14 @@ const Login = () => {
         // &&
         // user.password === inputUser.password
       );
-      console.log(inputUser.username);
+
       authDispatch({ type: "SET_USERID", payload: loggedInUser[0]._id });
 
       inputUser.username === loggedInUser[0].name &&
       inputUser.password === loggedInUser[0].password
         ? authDispatch({ type: "LOG_ON", payload: true })
         : console.error("incorrect credentials");
-      loginStatus || navigate("/");
+      loginStatus || navigate("/product");
 
       // let loggedInUserData = await axios.get(
       //   `http://localhost:3001/user/${loggedInUser[0]._id}`

@@ -1,8 +1,9 @@
-import { NavLink } from "react-router-dom";
 // import Products from "../Products/Products";
 // import Wishlist from "../Wishlist";
 // import Cart from "../Cart";
 import "./Navbar.css";
+import { NavLink } from "react-router-dom";
+
 // import { FaBars } from "react-icons/fa";
 // import { MdClose } from "react-icons/md";
 // import { useState } from "react";
@@ -24,14 +25,20 @@ const Navbar = ({ route, setRoute }) => {
               color: "var(--secondary-color",
               fontSize: "var(--length-lg1)",
             }}
-            activeClassName="active--link"
+            // activeStyle="active--link"
             to="/"
           >
             SimCommerce
           </NavLink>
         </h3>
+
         {/* <FaBars className="bar--icon" onClick={toggleHandler} /> */}
       </div>
+      {/* <div className="nav--items">
+        <NavLink to="/product">products</NavLink>
+        <NavLink to="/wishlist">wishlist</NavLink>
+        <NavLink to="/cart">cart</NavLink>
+      </div> */}
       {/* <NavItems /> */}
       {/* <ul className={`${toggleBar ? "nav--list show" : "nav--list"}`}> */}
       {/* <li onClick={() => setRoute("product")} className="nav--items">

@@ -1,15 +1,17 @@
 .product--container {
-  border: 4px solid red;
+  /* border: 4px solid red; */
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
   /* margin-top: var(--space-5); */
+  margin-left: 10rem;
 }
 
 .products--section {
-  width: 65%;
-  /* margin-left: var(--space-6); */
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 @media only screen and (max-width: 786px) {
@@ -17,11 +19,14 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
   }
-  .product-section {
+  .products-section {
     margin-left: auto;
     margin-right: auto;
     margin: 0;
+    width: 100%;
   }
 }
 .button--primary.disabled {
