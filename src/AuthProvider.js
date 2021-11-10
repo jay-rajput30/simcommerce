@@ -26,6 +26,15 @@ const reducerFunc = (state, { type, payload }) => {
 
     case "SET_CARTID":
       return { ...state, cartId: payload };
+    case "SET_WISHLISTITEM": {
+      console.log("wishlist item is set", payload);
+      return state;
+    }
+    case "SET_CARTITEM": {
+      console.log("cart item is set");
+      return state;
+    }
+
     default:
       return state;
   }
@@ -35,11 +44,13 @@ const reducerFunc = (state, { type, payload }) => {
 };
 
 const AuthProvider = ({ children }) => {
-  const [{ loginStatus, userId, wishlistId, cartId }, authDispatch] =
-    useReducer(reducerFunc, {
-      loginStatus: false,
-      userId: null,
-    });
+  const [
+    { loginStatus, userId, wishlistId, cartId, wishlistItems, cartItems },
+    authDispatch,
+  ] = useReducer(reducerFunc, {
+    loginStatus: false,
+    userId: null,
+  });
 
   return (
     <loginContext.Provider
@@ -49,6 +60,8 @@ const AuthProvider = ({ children }) => {
         wishlistId,
         cartId,
         authDispatch,
+        wishlistItems,
+        cartItems,
       }}
     >
       {children}

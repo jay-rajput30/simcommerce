@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../../../AuthProvider";
 import { useData } from "../../../DataProvider";
 import { useProduct } from "../../../ProductProvider";
+import { deleteAxiosCall } from "../../../services/deleteAxiosCall";
 import { getAxiosCall } from "../../../services/getAxiosCall";
+import { updateAxiosCall } from "../../../services/updateAxiosCall";
 
 const Cart = () => {
   const { productData } = useProduct();
@@ -15,10 +17,10 @@ const Cart = () => {
   useEffect(() => {
     async function getCart() {
       try {
-        let data = await getAxiosCall(URL);
-        console.log(data);
+        let { data } = await getAxiosCall(URL);
+        // console.log(data);
         const cartProducts = data.cartItem.products;
-        console.log(cartProducts);
+        // console.log(cartProducts);
         setFetchCart([...fetchCart, ...cartProducts]);
         dataDispatch({ type: "LOAD_CART", payload: fetchCart });
         authDispatch({
@@ -32,12 +34,41 @@ const Cart = () => {
     getCart();
   }, []);
 
-  const userCart = fetchCart.map((item) =>
+  const addCartBtnClickHandler = async (item) => {
+    // console.log({ itemId: item._id });
+    try {
+      const data = await updateAxiosCall(
+        `http://localhost:3001/cart/${cartId}`,
+        item["_id"]
+      );
+      console.log(data.cartItem.products.length);
+      console.log("fetchcart after item added", fetchCart);
+      setFetchCart(data.cartItem.products);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const removeCartBtnClickHandler = async (item) => {
+    try {
+      const data = await deleteAxiosCall(
+        `http://localhost:3001/cart/${cartId}`,
+        item["_id"]
+      );
+      console.log(data.cartItem.products.length);
+      console.log("fetchcart after item removed", fetchCart);
+      setFetchCart(data.cartItem.products);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+  let userCart = fetchCart.map((item) =>
     productData.find((productItem) => productItem._id === item)
   );
 
-  let usercartItemCount = [];
-  usercartItemCount = userCart.map(
+  let newUserCart = [...new Set(userCart)];
+
+  let usercartItemCount = userCart.map(
     (item) => userCart.filter((i) => i._id === item._id).length * item.price
   );
 
@@ -45,23 +76,19 @@ const Cart = () => {
     (acc, curr) => (acc = acc + curr),
     0
   );
-  // for (const item of userCart) {
-  //   usercartItemCount[item.name] = usercartItemCount[item.name]
-  //     ? usercartItemCount[item.name] + 1
-  //     : 1;
-  // }
 
-  console.log(usercartItemCount, totalPrice);
+  // console.log({ usercartItemCount, totalPrice });
+  console.log({ fetchCart });
   return (
     <section className="primary--section text--color__primary">
       <h2 className="text-utility heading">
         Total amount: (Rs.) {totalPrice}{" "}
       </h2>
       <ul className="cart--items">
-        {userCart.map((item) => {
+        {newUserCart.map((item) => {
           return (
             <li key={item._id} className="cart--item--container">
-              {console.log(item)}
+              {/* {console.log(item)} */}
               <div className="cart--item">
                 <div class="cart--item__details">
                   <h4>
@@ -70,17 +97,16 @@ const Cart = () => {
                   </h4>
                   <div className="cart--item__button-group">
                     <button
-                      onClick={() =>
-                        dataDispatch({ type: "CART_ADD", payload: item })
+                      onClick={
+                        // dataDispatch({ type: "CART_ADD", payload: item })
+                        () => addCartBtnClickHandler(item)
                       }
                       className="button primary--button"
                     >
                       +
                     </button>
                     <button
-                      onClick={() =>
-                        dataDispatch({ type: "CART_DECREASE", payload: item })
-                      }
+                      onClick={() => removeCartBtnClickHandler(item)}
                       className="button primary--button"
                     >
                       -

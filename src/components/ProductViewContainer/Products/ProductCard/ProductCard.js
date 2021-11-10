@@ -2,14 +2,13 @@ import "./ProductCard.css";
 import { AiOutlineHeart } from "react-icons/ai";
 import { FcLike } from "react-icons/fc";
 import { useData } from "../../../../DataProvider";
-// import { useAuth } from "../../../AuthProvider";
 import { updateAxiosCall } from "../../../../services/updateAxiosCall";
 import { useAuth } from "../../../../AuthProvider";
 import { Link } from "react-router-dom";
 
 const ProductCard = ({ item }) => {
   const { wishlistItems, dataDispatch } = useData();
-  const { wishlistId } = useAuth();
+  const { wishlistId, cartId } = useAuth();
 
   const findWishlistedItem = (item) => {
     return wishlistItems.find(
@@ -32,7 +31,16 @@ const ProductCard = ({ item }) => {
     }
   };
 
-  const addCartBtnClickHandler = () => {};
+  const addCartBtnClickHandler = async () => {
+    try {
+      const data = await updateAxiosCall(
+        `http://localhost:3001/cart/${cartId}`,
+        item["_id"]
+      );
+    } catch (e) {
+      console.error(e);
+    }
+  };
   return (
     <article className="card">
       <div className="card--top">
@@ -80,6 +88,7 @@ const ProductCard = ({ item }) => {
           add to wishlist
         </button>
         <button
+          onClick={addCartBtnClickHandler}
           className={`${
             item.outOfStock === true
               ? "button primary--button disabled"
