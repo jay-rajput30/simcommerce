@@ -111,14 +111,14 @@ const Cart = () => {
                     >
                       -
                     </button>
-                    <button
+                    {/* <button
                       onClick={() =>
                         dataDispatch({ type: "CART_REMOVE", payload: item })
                       }
                       className="button secondary--button"
                     >
                       remove
-                    </button>
+                    </button> */}
                   </div>
                 </div>
                 <small className="text-utility heading">

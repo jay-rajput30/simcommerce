@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { useAuth } from "../../../AuthProvider";
 // import { useAuth } from "../../AuthProvider";
 import { useData } from "../../../DataProvider";
@@ -8,10 +9,10 @@ import { deleteAxiosCall } from "../../../services/deleteAxiosCall";
 import { getAxiosCall } from "../../../services/getAxiosCall";
 import { updateAxiosCall } from "../../../services/updateAxiosCall";
 
-const WishlistCard = ({ item }) => {
+const WishlistCard = ({ item, fetchWishlist, setFetchWishlist }) => {
   const { productData } = useProduct();
   const { dataDispatch } = useData();
-  const [fetchWishlist, setFetchWishlist] = useState([]);
+  // const [fetchWishlist, setFetchWishlist] = useState([]);
   const { userId, wishlistId, cartId, authDispatch } = useAuth();
 
   return (
@@ -26,8 +27,13 @@ const WishlistCard = ({ item }) => {
       </div>
 
       <div className="card--bottom">
-        <div>
-          <p>{item["price"]}</p>
+        <div className="card--details--container">
+          <p>Rs.{item["price"]}</p>
+          {/* <p>{item.outOfStock ? "out of stock" : "in stock"}</p>
+          <p>{item.fastDelivery ? "fast delivery" : null}</p> */}
+          <Link classname="view--detail" to="/product/${item.id}">
+            view more
+          </Link>
         </div>
 
         <button
@@ -52,14 +58,14 @@ const WishlistCard = ({ item }) => {
         </button>
         <button
           onClick={async () => {
-            dataDispatch({ type: "WISHLIST_REMOVE", payload: item });
+            // dataDispatch({ type: "WISHLIST_REMOVE", payload: item });
             try {
               const data = await deleteAxiosCall(
                 `http://localhost:3001/wishlist/${wishlistId}`,
                 item["_id"]
               );
               const wishlistProducts = data.wishlistItem.products;
-              setFetchWishlist([...wishlistProducts]);
+              setFetchWishlist(wishlistProducts);
             } catch (e) {
               console.error(e);
             }

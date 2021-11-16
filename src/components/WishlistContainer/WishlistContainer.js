@@ -1,4 +1,5 @@
-import axios from "axios";
+// import axios from "axios";
+import "./WishlistContainer.css";
 import { useEffect, useState } from "react";
 import { useAuth } from "../../AuthProvider";
 import { useData } from "../../DataProvider";
@@ -48,9 +49,15 @@ const WishlistContainer = ({ route, setRoute }) => {
     productData.find((productItem) => productItem._id === item)
   );
   return (
-    <section>
+    <section className="wishlist--container">
       {userWishlist.map((item) => {
-        return <WishlistCard item={item} />;
+        return (
+          <WishlistCard
+            item={item}
+            fetchWishlist={fetchWishlist}
+            setFetchWishlist={setFetchWishlist}
+          />
+        );
       })}
     </section>
   );
