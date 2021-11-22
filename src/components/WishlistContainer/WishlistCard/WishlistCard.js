@@ -15,6 +15,19 @@ const WishlistCard = ({ item, fetchWishlist, setFetchWishlist }) => {
   // const [fetchWishlist, setFetchWishlist] = useState([]);
   const { userId, wishlistId, cartId, authDispatch } = useAuth();
 
+  const removeWishlistItemClickHandler = async () => {
+    // dataDispatch({ type: "WISHLIST_REMOVE", payload: item });
+    try {
+      const data = await deleteAxiosCall(
+        `http://localhost:3001/wishlist/${wishlistId}`,
+        item["_id"]
+      );
+      const wishlistProducts = data.wishlistItem.products;
+      setFetchWishlist((prev) => wishlistProducts);
+    } catch (e) {
+      console.error(e);
+    }
+  };
   return (
     <article key={item._id} className="card">
       <div className="card--top">
@@ -31,7 +44,7 @@ const WishlistCard = ({ item, fetchWishlist, setFetchWishlist }) => {
           <p>Rs.{item["price"]}</p>
           {/* <p>{item.outOfStock ? "out of stock" : "in stock"}</p>
           <p>{item.fastDelivery ? "fast delivery" : null}</p> */}
-          <Link classname="view--detail" to="/product/${item.id}">
+          <Link classname="view--detail" to={`/product/${item.id}`}>
             view more
           </Link>
         </div>
@@ -57,19 +70,7 @@ const WishlistCard = ({ item, fetchWishlist, setFetchWishlist }) => {
           add to cart
         </button>
         <button
-          onClick={async () => {
-            // dataDispatch({ type: "WISHLIST_REMOVE", payload: item });
-            try {
-              const data = await deleteAxiosCall(
-                `http://localhost:3001/wishlist/${wishlistId}`,
-                item["_id"]
-              );
-              const wishlistProducts = data.wishlistItem.products;
-              setFetchWishlist(wishlistProducts);
-            } catch (e) {
-              console.error(e);
-            }
-          }}
+          onClick={removeWishlistItemClickHandler}
           className="button secondary--button"
         >
           remove

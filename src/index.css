@@ -31,12 +31,12 @@ body {
   align-items: center;
 }
 
-.cart--item--container {
-  margin-bottom: var(--space-2);
-  /* border: 2px solid red; */
-  padding: var(--space-2);
+/* .cart--item--container {
+  margin-bottom: var(--space-2); */
+/* border: 2px solid red; */
+/* padding: var(--space-2);
   width: 40%;
-}
+} */
 
 .cart--item--container:first-child {
   margin-top: var(--space-2);

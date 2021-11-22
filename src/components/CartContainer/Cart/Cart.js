@@ -5,7 +5,7 @@ import { useProduct } from "../../../ProductProvider";
 import { deleteAxiosCall } from "../../../services/deleteAxiosCall";
 import { getAxiosCall } from "../../../services/getAxiosCall";
 import { updateAxiosCall } from "../../../services/updateAxiosCall";
-
+import "./Cart.css";
 const Cart = () => {
   const { productData } = useProduct();
   const { cartItems, dataDispatch } = useData();
@@ -80,7 +80,8 @@ const Cart = () => {
   // console.log({ usercartItemCount, totalPrice });
   console.log({ fetchCart });
   return (
-    <section className="primary--section text--color__primary">
+    // className="primary--section text--color__primary"
+    <section>
       <h2 className="text-utility heading">
         Total amount: (Rs.) {totalPrice}{" "}
       </h2>
