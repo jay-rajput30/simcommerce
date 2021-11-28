@@ -14,8 +14,23 @@ const WishlistContainer = ({ route, setRoute }) => {
   const { dataDispatch } = useData();
   const [fetchWishlist, setFetchWishlist] = useState([]);
   const { userId, wishlistId, cartId, authDispatch } = useAuth();
-
   const URL = `http://localhost:3001/wishlist/${userId}`;
+
+  const removeWishlistItemClickHandler = async (item) => {
+    // dataDispatch({ type: "WISHLIST_REMOVE", payload: item });
+    console.log({ name: item["name"] });
+    try {
+      const data = await deleteAxiosCall(
+        `http://localhost:3001/wishlist/${wishlistId}`,
+        item["_id"]
+      );
+      const wishlistProducts = data.wishlistItem.products;
+      console.log({ wishlistProducts });
+      setFetchWishlist(wishlistProducts);
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   useEffect(() => {
     async function getwishlist() {
@@ -56,6 +71,7 @@ const WishlistContainer = ({ route, setRoute }) => {
             item={item}
             fetchWishlist={fetchWishlist}
             setFetchWishlist={setFetchWishlist}
+            removeWishlistItemClickHandler={removeWishlistItemClickHandler}
           />
         );
       })}

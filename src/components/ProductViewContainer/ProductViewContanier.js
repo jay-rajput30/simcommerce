@@ -53,6 +53,7 @@ const ProductViewContainer = () => {
     fetchCart();
   }, []);
   console.log({ userId, wishlistId, cartId });
+
   const showFilterBtnHandler = () => {
     setShowFilter(true);
   };

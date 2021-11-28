@@ -9,25 +9,30 @@ import { deleteAxiosCall } from "../../../services/deleteAxiosCall";
 import { getAxiosCall } from "../../../services/getAxiosCall";
 import { updateAxiosCall } from "../../../services/updateAxiosCall";
 
-const WishlistCard = ({ item, fetchWishlist, setFetchWishlist }) => {
+const WishlistCard = ({
+  item,
+  fetchWishlist,
+  setFetchWishlist,
+  removeWishlistItemClickHandler,
+}) => {
   const { productData } = useProduct();
   const { dataDispatch } = useData();
   // const [fetchWishlist, setFetchWishlist] = useState([]);
   const { userId, wishlistId, cartId, authDispatch } = useAuth();
 
-  const removeWishlistItemClickHandler = async () => {
-    // dataDispatch({ type: "WISHLIST_REMOVE", payload: item });
-    try {
-      const data = await deleteAxiosCall(
-        `http://localhost:3001/wishlist/${wishlistId}`,
-        item["_id"]
-      );
-      const wishlistProducts = data.wishlistItem.products;
-      setFetchWishlist((prev) => wishlistProducts);
-    } catch (e) {
-      console.error(e);
-    }
-  };
+  // const removeWishlistItemClickHandler = async () => {
+  //   // dataDispatch({ type: "WISHLIST_REMOVE", payload: item });
+  //   try {
+  //     const data = await deleteAxiosCall(
+  //       `http://localhost:3001/wishlist/${wishlistId}`,
+  //       item["_id"]
+  //     );
+  //     const wishlistProducts = data.wishlistItem.products;
+  //     setFetchWishlist(wishlistProducts);
+  //   } catch (e) {
+  //     console.error(e);
+  //   }
+  // };
   return (
     <article key={item._id} className="card">
       <div className="card--top">
@@ -70,7 +75,7 @@ const WishlistCard = ({ item, fetchWishlist, setFetchWishlist }) => {
           add to cart
         </button>
         <button
-          onClick={removeWishlistItemClickHandler}
+          onClick={() => removeWishlistItemClickHandler(item)}
           className="button secondary--button"
         >
           remove

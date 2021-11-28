@@ -1,7 +1,7 @@
 .cart--items {
   align-items: center;
 }
-section {
+.cart--section {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -17,7 +17,6 @@ section {
     display: flex;
   }
   .cart--item {
-    /* border: 2px solid rgb(201, 183, 183); */
     width: 100%;
   }
 

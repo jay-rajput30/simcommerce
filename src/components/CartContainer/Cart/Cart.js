@@ -81,7 +81,7 @@ const Cart = () => {
   console.log({ fetchCart });
   return (
     // className="primary--section text--color__primary"
-    <section>
+    <section className="cart--section">
       <h2 className="text-utility heading">
         Total amount: (Rs.) {totalPrice}{" "}
       </h2>

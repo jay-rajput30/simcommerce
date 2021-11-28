@@ -1,17 +1,24 @@
 .product--container {
+  width: 100%;
   /* border: 4px solid red; */
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
   /* margin-top: var(--space-5); */
-  margin-left: 10rem;
+  margin-left: 14rem;
+  /* flex-wrap: wrap; */
 }
 
 .products--section {
-  width: 70%;
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
+  /* display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  flex-wrap: wrap; */
 }
 
 @media only screen and (max-width: 786px) {
