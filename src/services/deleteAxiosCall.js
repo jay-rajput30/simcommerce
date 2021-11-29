@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const deleteAxiosCall = async (url, id) => {
   try {
-    const data = await axios.delete(url, { productId: id });
+    const data = await axios.post(url, { productId: id });
     if (data.status === 200) {
       return data.data;
     }

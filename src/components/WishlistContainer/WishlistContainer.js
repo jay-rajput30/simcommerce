@@ -18,8 +18,9 @@ const WishlistContainer = ({ route, setRoute }) => {
 
   const removeWishlistItemClickHandler = async (item) => {
     // dataDispatch({ type: "WISHLIST_REMOVE", payload: item });
-    console.log({ name: item["name"] });
+    // console.log({ name: item["name"] });
     try {
+      console.log({ wishlistId: wishlistId, item: item });
       const data = await deleteAxiosCall(
         `http://localhost:3001/wishlist/${wishlistId}`,
         item["_id"]
