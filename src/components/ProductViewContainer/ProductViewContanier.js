@@ -46,7 +46,7 @@ const ProductViewContainer = () => {
       });
       authDispatch({
         type: "SET_CARTITEM",
-        payload: data.cartItem.products,
+        payload: data.cartItem.cartProducts,
       });
     }
 

@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { useAuth } from "../../../AuthProvider";
 import { useData } from "../../../DataProvider";
@@ -19,7 +20,7 @@ const Cart = () => {
       try {
         let { data } = await getAxiosCall(URL);
         // console.log(data);
-        const cartProducts = data.cartItem.products;
+        const cartProducts = data.cartItem.cartProducts;
         // console.log(cartProducts);
         setFetchCart([...fetchCart, ...cartProducts]);
         dataDispatch({ type: "LOAD_CART", payload: fetchCart });
@@ -41,9 +42,9 @@ const Cart = () => {
         `http://localhost:3001/cart/${cartId}`,
         item["_id"]
       );
-      console.log(data.cartItem.products.length);
+
       console.log("fetchcart after item added", fetchCart);
-      setFetchCart(data.cartItem.products);
+      setFetchCart(data.cartItem.cartProducts);
     } catch (e) {
       console.error(e);
     }
@@ -51,31 +52,46 @@ const Cart = () => {
 
   const removeCartBtnClickHandler = async (item) => {
     try {
-      const data = await deleteAxiosCall(
-        `http://localhost:3001/cart/${cartId}`,
-        item["_id"]
+      const data = await axios.post(
+        `http://localhost:3001/cart/remove/${cartId}`,
+        { removeProductId: item["_id"] }
       );
-      console.log(data.cartItem.products.length);
-      console.log("fetchcart after item removed", fetchCart);
-      setFetchCart(data.cartItem.products);
-    } catch (e) {
-      console.error(e);
+      if (data.status === 200) {
+        return data.data;
+      }
+      return null;
+    } catch (err) {
+      console.error(err);
+      return null;
     }
+    // try {
+    //   const data = await deleteAxiosCall(
+    //     `http://localhost:3001/cart/remove/${cartId}`,
+    //     item["_id"]
+    //   );
+    //   console.log(data.cartItem.products.length);
+    //   console.log("fetchcart after item removed", fetchCart);
+    //   setFetchCart(data.cartItem.products);
+    // }
+    // catch (e) {
+    //   console.error(e);
+    // }
   };
+  console.log({ fetchCart });
   let userCart = fetchCart.map((item) =>
     productData.find((productItem) => productItem._id === item)
   );
 
   let newUserCart = [...new Set(userCart)];
 
-  let usercartItemCount = userCart.map(
-    (item) => userCart.filter((i) => i._id === item._id).length * item.price
-  );
+  let totalPrice = fetchCart.reduce((acc, item) => {
+    return acc + item.productId.price * item.quantity;
+  }, 0);
 
-  let totalPrice = usercartItemCount.reduce(
-    (acc, curr) => (acc = acc + curr),
-    0
-  );
+  // let totalPrice = usercartItemCount.reduce(
+  //   (acc, curr) => (acc = acc + curr),
+  //   0
+  // );
 
   // console.log({ usercartItemCount, totalPrice });
   console.log({ fetchCart });
@@ -86,15 +102,15 @@ const Cart = () => {
         Total amount: (Rs.) {totalPrice}{" "}
       </h2>
       <ul className="cart--items">
-        {newUserCart.map((item) => {
+        {fetchCart.map(({ productId: item, quantity }) => {
           return (
             <li key={item._id} className="cart--item--container">
               {/* {console.log(item)} */}
               <div className="cart--item">
                 <div class="cart--item__details">
                   <h4>
-                    {item.name} X{" "}
-                    {userCart.filter((i) => i._id === item._id).length}
+                    {item.name} X{quantity}
+                    {/* {userCart.filter((i) => i._id === item._id).length} */}
                   </h4>
                   <div className="cart--item__button-group">
                     <button
