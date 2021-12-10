@@ -5,8 +5,15 @@ import { useData } from "../../../../DataProvider";
 import { updateAxiosCall } from "../../../../services/updateAxiosCall";
 import { useAuth } from "../../../../AuthProvider";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 
-const ProductCard = ({ item }) => {
+const ProductCard = ({
+  item,
+  showToast,
+  setShowToast,
+  message,
+  setMessage,
+}) => {
   const { wishlistItems, dataDispatch } = useData();
   const { wishlistId, cartId } = useAuth();
 
@@ -17,6 +24,8 @@ const ProductCard = ({ item }) => {
   };
 
   const addWishlistBtnClickHandler = async () => {
+    setMessage("item added to wishlist");
+    setShowToast(true);
     if (item.outOfStock === false) {
       dataDispatch({ type: "WISHLIST_ADD", payload: item });
 
@@ -32,6 +41,8 @@ const ProductCard = ({ item }) => {
   };
 
   const addCartBtnClickHandler = async () => {
+    setMessage("item added to cart");
+    setShowToast(true);
     try {
       const data = await updateAxiosCall(
         `http://localhost:3001/cart/${cartId}`,

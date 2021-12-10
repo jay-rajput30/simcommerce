@@ -5,9 +5,12 @@ import { useState, useEffect } from "react";
 import MobileFilter from "./MobileFilter/MobileFilter";
 import { useAuth } from "../../AuthProvider";
 import axios from "axios";
+import ToastMessage from "../ToastMessage/ToastMessage";
 
 const ProductViewContainer = () => {
   const [showFilter, setShowFilter] = useState(false);
+  const [showToast, setShowToast] = useState(false);
+  const [message, setMessage] = useState();
   const {
     loginStatus,
     userId,
@@ -63,11 +66,19 @@ const ProductViewContainer = () => {
   return (
     <div className="product--view--container">
       <DesktopFilter />
-      <Products />
+      <Products
+        showToast={showToast}
+        setShowToast={setShowToast}
+        message={message}
+        setMessage={setMessage}
+      />
       <button className="floating--button" onClick={showFilterBtnHandler}>
         +
       </button>
       {showFilter && <MobileFilter hideFilter={hideFilter} />}
+      {showToast && (
+        <ToastMessage message={message} setShowToast={setShowToast} />
+      )}
     </div>
   );
 };

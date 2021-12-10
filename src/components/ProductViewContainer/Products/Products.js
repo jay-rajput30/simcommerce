@@ -5,8 +5,9 @@ import { AiOutlineHeart } from "react-icons/ai";
 import { FcLike } from "react-icons/fc";
 import ProductCard from "./ProductCard/ProductCard";
 import { useData } from "../../../DataProvider";
+import { useState } from "react";
 
-const Products = ({ route, setRoute }) => {
+const Products = ({ showToast, setShowToast, message, setMessage }) => {
   const { wishlistItems } = useData();
   const { productData, sortBy, showFastDelivery } = useProduct();
 
@@ -38,7 +39,15 @@ const Products = ({ route, setRoute }) => {
     <div className="product--container">
       <section className="products--section">
         {filteredData.map((item) => {
-          return <ProductCard item={item} />;
+          return (
+            <ProductCard
+              item={item}
+              showToast={showToast}
+              setShowToast={setShowToast}
+              message={message}
+              setMessage={setMessage}
+            />
+          );
         })}
       </section>
     </div>
