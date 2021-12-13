@@ -14,6 +14,10 @@ const WishlistCard = ({
   fetchWishlist,
   setFetchWishlist,
   removeWishlistItemClickHandler,
+  showToast,
+  setShowToast,
+  message,
+  setMessage,
 }) => {
   const { productData } = useProduct();
   const { dataDispatch } = useData();
@@ -57,7 +61,8 @@ const WishlistCard = ({
         <button
           onClick={async () => {
             dataDispatch({ type: "CART_ADD", payload: item });
-
+            setMessage("item added to cart");
+            setShowToast(true);
             try {
               console.log(cartId, item["_id"]);
               const data = await updateAxiosCall(

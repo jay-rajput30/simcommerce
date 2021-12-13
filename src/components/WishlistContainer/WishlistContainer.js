@@ -8,17 +8,22 @@ import { deleteAxiosCall } from "../../services/deleteAxiosCall";
 import { getAxiosCall } from "../../services/getAxiosCall";
 import { updateAxiosCall } from "../../services/updateAxiosCall";
 import WishlistCard from "./WishlistCard/WishlistCard";
+import ToastMessage from "../ToastMessage/ToastMessage";
 
-const WishlistContainer = ({ route, setRoute }) => {
+const WishlistContainer = () => {
   const { productData } = useProduct();
   const { dataDispatch } = useData();
   const [fetchWishlist, setFetchWishlist] = useState([]);
+  const [showToast, setShowToast] = useState(false);
+  const [message, setMessage] = useState();
   const { userId, wishlistId, cartId, authDispatch } = useAuth();
   const URL = `http://localhost:3001/wishlist/${userId}`;
 
   const removeWishlistItemClickHandler = async (item) => {
     // dataDispatch({ type: "WISHLIST_REMOVE", payload: item });
     // console.log({ name: item["name"] });
+    setMessage("item removed from wishlist");
+    setShowToast(true);
     try {
       console.log({ wishlistId: wishlistId, item: item });
       const data = await deleteAxiosCall(
@@ -73,9 +78,16 @@ const WishlistContainer = ({ route, setRoute }) => {
             fetchWishlist={fetchWishlist}
             setFetchWishlist={setFetchWishlist}
             removeWishlistItemClickHandler={removeWishlistItemClickHandler}
+            showToast={showToast}
+            setShowToast={setShowToast}
+            message={message}
+            setMessage={setMessage}
           />
         );
       })}
+      {showToast && (
+        <ToastMessage message={message} setShowToast={setShowToast} />
+      )}
     </section>
   );
 };

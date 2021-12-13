@@ -8,7 +8,8 @@ import { getAxiosCall } from "../../../services/getAxiosCall";
 import { updateAxiosCall } from "../../../services/updateAxiosCall";
 import ToastMessage from "../../ToastMessage/ToastMessage";
 import "./Cart.css";
-const Cart = () => {
+
+const Cart = ({ showToast, setShowToast, message, setMessage }) => {
   const { productData } = useProduct();
   const { cartItems, dataDispatch } = useData();
   const [fetchCart, setFetchCart] = useState([]);
@@ -55,6 +56,8 @@ const Cart = () => {
   };
 
   const removeCartBtnClickHandler = async (item) => {
+    setMessage("item removed from cart");
+    setShowToast(true);
     try {
       const data = await axios.post(
         `http://localhost:3001/cart/remove/${cartId}`,
