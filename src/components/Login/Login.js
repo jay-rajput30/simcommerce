@@ -13,28 +13,20 @@ const Login = () => {
     username: null,
     password: null,
   });
-  const [allUsers, setAllUsers] = useState([]);
-  const navigate = useNavigate([]);
+  // const [allUsers, setAllUsers] = useState([]);
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    async function getUsers() {
-      try {
-        let { data } = await axios.get("http://localhost:3001/user/");
-        setAllUsers([...allUsers, data.users]);
-
-        // const { data } = await getAxiosCall(
-        //   `http://localhost:3001/cart/${loggedInUser[0]._id}`
-        // );
-        // authDispatch({
-        //   type: "SET_CARTID",
-        //   payload: data.cartItem._id,
-        // });
-      } catch (e) {
-        console.error(e);
-      }
-    }
-    getUsers();
-  }, []);
+  // useEffect(() => {
+  //   async function getUsers() {
+  //     try {
+  //       let { data } = await axios.get("http://localhost:3001/user/");
+  //       setAllUsers([...allUsers, data.users]);
+  //     } catch (e) {
+  //       console.error(e);
+  //     }
+  //   }
+  //   getUsers();
+  // }, []);
 
   // const setLoginDetails = (username, password) => {
   //   // authDispatch({ type: "SET_USERNAME", payload: username });
@@ -53,19 +45,20 @@ const Login = () => {
 
   const loginClickHandler = async () => {
     try {
-      const loggedInUser = allUsers[0].filter(
-        (user) => user.name === inputUser.username
-        // &&
-        // user.password === inputUser.password
-      );
+      const { data } = await axios.post("http://localhost:3001/user/validate", {
+        username: inputUser.username,
+        password: inputUser.password,
+      });
+      console.log({ data, inputUser });
 
-      authDispatch({ type: "SET_USERID", payload: loggedInUser[0]._id });
-
-      inputUser.username === loggedInUser[0].name &&
-      inputUser.password === loggedInUser[0].password
-        ? authDispatch({ type: "LOG_ON", payload: true })
-        : console.error("incorrect credentials");
-      loginStatus || navigate("/product");
+      if (data?.success === true) {
+        authDispatch({ type: "LOG_ON", payload: true });
+        authDispatch({ type: "SET_USERID", payload: data.userId });
+        navigate("/product");
+      } else {
+        console.error("incorrect credentials");
+      }
+      console.log({ loginStatus });
 
       // let loggedInUserData = await axios.get(
       //   `http://localhost:3001/user/${loggedInUser[0]._id}`
