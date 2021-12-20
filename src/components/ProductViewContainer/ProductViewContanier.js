@@ -31,10 +31,10 @@ const ProductViewContainer = () => {
         type: "SET_WISHLISTID",
         payload: data.wishlistItem._id,
       });
-      authDispatch({
-        type: "SET_WISHLISTITEM",
-        payload: data.wishlistItem.products,
-      });
+      // authDispatch({
+      //   type: "SET_WISHLISTITEM",
+      //   payload: data.wishlistItem.products,
+      // });
     }
 
     fetchWishlist();
@@ -47,10 +47,10 @@ const ProductViewContainer = () => {
         type: "SET_CARTID",
         payload: data.cartItem._id,
       });
-      authDispatch({
-        type: "SET_CARTITEM",
-        payload: data.cartItem.cartProducts,
-      });
+      //   authDispatch({
+      //     type: "SET_CARTITEM",
+      //     payload: data.cartItem.cartProducts,
+      //   });
     }
 
     fetchCart();

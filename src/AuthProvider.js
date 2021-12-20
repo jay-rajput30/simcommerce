@@ -34,6 +34,15 @@ const reducerFunc = (state, { type, payload }) => {
       console.log("cart item is set");
       return state;
     }
+    case "USER_LOGGEDIN":
+      return {
+        loginStatus: true,
+        userId: payload.userId,
+        wishlistId: payload.wishlistItem._id,
+        cartId: payload.cartItem._id,
+        wishlistItems: payload.wishlistItem.products,
+        cartItems: payload.cartItem.cartProducts,
+      };
 
     default:
       return state;

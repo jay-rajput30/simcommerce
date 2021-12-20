@@ -45,15 +45,39 @@ const Login = () => {
 
   const loginClickHandler = async () => {
     try {
-      const { data } = await axios.post("http://localhost:3001/user/validate", {
+      const response = await axios.post("http://localhost:3001/user/validate", {
         username: inputUser.username,
         password: inputUser.password,
       });
-      console.log({ data, inputUser });
+      // console.log({ data, inputUser });
 
-      if (data?.success === true) {
-        authDispatch({ type: "LOG_ON", payload: true });
-        authDispatch({ type: "SET_USERID", payload: data.userId });
+      // const data = {
+      //   success: true,
+      //   userId: "61005f956b8c7113945a4070",
+      //   wishlistItem: "61005f966b8c7113945a4071",
+      //   cartItem: "61005f966b8c7113945a4072",
+      // };
+
+      if (response.data?.success === true) {
+        authDispatch({
+          type: "USER_LOGGEDIN",
+          payload: {
+            userId: response.data.userId,
+            wishlistItem: response.data.wishlistItem,
+            cartItem: response.data.cartItem,
+          },
+        });
+        // authDispatch({ type: "LOG_ON", payload: true });
+        // authDispatch({ type: "SET_USERID", payload: data.userId });
+        // authDispatch({
+        //   type: "SET_CARTID",
+        //   payload: data.cartItem._id,
+        // });
+        // authDispatch({
+        //   type: "SET_WISHLISTID",
+        //   payload: data.wishlistItem._id,
+        // });
+        console.log(response);
         navigate("/product");
       } else {
         console.error("incorrect credentials");
@@ -76,7 +100,7 @@ const Login = () => {
   return (
     <div className="main--container">
       <div>
-        <form className="login--container">
+        <form className="login--container" onSubmit={(e) => e.preventDefault()}>
           <div className="form--item">
             <label className="username--label">username</label>
             <input
@@ -115,8 +139,7 @@ const Login = () => {
             // className="form--item"
           >
             <small>
-              Haven't singed up yet? <NavLink to="/signup">sign up</NavLink>
-              {loginStatus}
+              Haven't signed up yet? <NavLink to="/signup">sign up</NavLink>
             </small>
           </div>
         </form>
