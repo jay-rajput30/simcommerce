@@ -22,39 +22,20 @@ const ProductViewContainer = () => {
   } = useAuth();
 
   useEffect(() => {
-    async function fetchWishlist() {
-      const { data } = await axios.get(
-        `http://localhost:3001/wishlist/${userId}`
+    async function fetchUserDetails() {
+      const data = await axios.get(
+        `http://localhost:3001/user/usercollection/${userId}`
       );
 
       authDispatch({
         type: "SET_WISHLISTID",
-        payload: data.wishlistItem._id,
+        payload: { cartId: data.data.cartId, wishlistId: data.data.wishlistId },
       });
-      // authDispatch({
-      //   type: "SET_WISHLISTITEM",
-      //   payload: data.wishlistItem.products,
-      // });
     }
 
-    fetchWishlist();
+    fetchUserDetails();
   }, []);
 
-  useEffect(() => {
-    async function fetchCart() {
-      const { data } = await axios.get(`http://localhost:3001/cart/${userId}`);
-      authDispatch({
-        type: "SET_CARTID",
-        payload: data.cartItem._id,
-      });
-      //   authDispatch({
-      //     type: "SET_CARTITEM",
-      //     payload: data.cartItem.cartProducts,
-      //   });
-    }
-
-    fetchCart();
-  }, []);
   console.log({ userId, wishlistId, cartId });
 
   const showFilterBtnHandler = () => {

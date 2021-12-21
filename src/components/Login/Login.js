@@ -49,14 +49,6 @@ const Login = () => {
         username: inputUser.username,
         password: inputUser.password,
       });
-      // console.log({ data, inputUser });
-
-      // const data = {
-      //   success: true,
-      //   userId: "61005f956b8c7113945a4070",
-      //   wishlistItem: "61005f966b8c7113945a4071",
-      //   cartItem: "61005f966b8c7113945a4072",
-      // };
 
       if (response.data?.success === true) {
         authDispatch({
@@ -77,22 +69,19 @@ const Login = () => {
         //   type: "SET_WISHLISTID",
         //   payload: data.wishlistItem._id,
         // });
-        console.log(response);
+        localStorage.setItem(
+          "userDetails",
+          JSON.stringify({
+            userId: response.data.userId,
+            wishlistId: response.data.wishlistItem._id,
+            cartId: response.data.cartItem._id,
+          })
+        );
         navigate("/product");
       } else {
         console.error("incorrect credentials");
       }
       console.log({ loginStatus });
-
-      // let loggedInUserData = await axios.get(
-      //   `http://localhost:3001/user/${loggedInUser[0]._id}`
-      // );
-
-      // getDetails(
-      //   loggedInUser[0]._id,
-      //   loggedInUser[0].name,
-      //   loggedInUser[0].password
-      // );
     } catch (e) {
       console.error(e);
     }
@@ -105,7 +94,6 @@ const Login = () => {
             <label className="username--label">username</label>
             <input
               type="text"
-              // id="outline--input"
               className="username--input"
               onChange={(e) => {
                 setInputUser({ ...inputUser, username: e.target.value });

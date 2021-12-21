@@ -21,11 +21,12 @@ const reducerFunc = (state, { type, payload }) => {
     case "SET_USERID":
       return { ...state, userId: payload };
 
-    case "SET_WISHLISTID":
-      return { ...state, wishlistId: payload };
-
-    case "SET_CARTID":
-      return { ...state, cartId: payload };
+    case "SET_USER_COLLECTION":
+      return {
+        ...state,
+        cartId: payload.cartId,
+        wishlistId: payload.wishlistId,
+      };
     case "SET_WISHLISTITEM": {
       console.log("wishlist item is set", payload);
       return state;

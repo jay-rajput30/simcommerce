@@ -10,6 +10,7 @@ const WelcomeUser = ({ username }) => {
 
   const logOffClickHandler = () => {
     authDispatch({ type: "LOG_OFF", payload: false });
+    localStorage.removeItem("userDetails");
     navigate("/login");
   };
   return (
