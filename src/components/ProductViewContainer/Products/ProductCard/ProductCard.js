@@ -15,8 +15,8 @@ const ProductCard = ({
   setMessage,
 }) => {
   const { wishlistItems, dataDispatch } = useData();
-  const { wishlistId, cartId } = useAuth();
-
+  const { userId, wishlistId, cartId, token } = useAuth();
+  console.log({ token });
   const findWishlistedItem = (item) => {
     return wishlistItems.find(
       (i) => item.id === i.id && i.isWishlisted === true
@@ -31,8 +31,9 @@ const ProductCard = ({
 
       try {
         const data = await updateAxiosCall(
-          `http://localhost:3001/wishlist/${wishlistId}`,
-          item["_id"]
+          `http://localhost:3001/wishlist/${userId}`,
+          item["_id"],
+          token
         );
       } catch (e) {
         console.error(e);
@@ -45,8 +46,13 @@ const ProductCard = ({
     setShowToast(true);
     try {
       const data = await updateAxiosCall(
-        `http://localhost:3001/cart/${cartId}`,
-        item["_id"]
+        `http://localhost:3001/cart/${userId}`,
+        item["_id"],
+        {
+          headers: {
+            authorization: token,
+          },
+        }
       );
     } catch (e) {
       console.error(e);

@@ -19,12 +19,19 @@ const ProductViewContainer = () => {
     wishlistItems,
     cartItems,
     authDispatch,
+    token,
   } = useAuth();
 
   useEffect(() => {
     async function fetchUserDetails() {
+      console.log({token})
       const data = await axios.get(
-        `http://localhost:3001/user/usercollection/${userId}`
+        `http://localhost:3001/user/usercollection/`,
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
       );
 
       authDispatch({

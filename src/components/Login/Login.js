@@ -57,6 +57,7 @@ const Login = () => {
             userId: response.data.userId,
             wishlistItem: response.data.wishlistItem,
             cartItem: response.data.cartItem,
+            token: response.data.token,
           },
         });
         // authDispatch({ type: "LOG_ON", payload: true });

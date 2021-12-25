@@ -43,6 +43,7 @@ const reducerFunc = (state, { type, payload }) => {
         cartId: payload.cartItem._id,
         wishlistItems: payload.wishlistItem.products,
         cartItems: payload.cartItem.cartProducts,
+        token: payload.token,
       };
 
     default:
@@ -55,7 +56,15 @@ const reducerFunc = (state, { type, payload }) => {
 
 const AuthProvider = ({ children }) => {
   const [
-    { loginStatus, userId, wishlistId, cartId, wishlistItems, cartItems },
+    {
+      loginStatus,
+      userId,
+      wishlistId,
+      cartId,
+      wishlistItems,
+      cartItems,
+      token,
+    },
     authDispatch,
   ] = useReducer(reducerFunc, {
     loginStatus: false,
@@ -72,6 +81,7 @@ const AuthProvider = ({ children }) => {
         authDispatch,
         wishlistItems,
         cartItems,
+        token,
       }}
     >
       {children}
