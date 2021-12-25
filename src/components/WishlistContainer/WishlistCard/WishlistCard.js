@@ -22,14 +22,15 @@ const WishlistCard = ({
   const { productData } = useProduct();
   const { dataDispatch } = useData();
   // const [fetchWishlist, setFetchWishlist] = useState([]);
-  const { userId, wishlistId, cartId, authDispatch } = useAuth();
+  const { userId, wishlistId, cartId, authDispatch, token } = useAuth();
 
   // const removeWishlistItemClickHandler = async () => {
   //   // dataDispatch({ type: "WISHLIST_REMOVE", payload: item });
   //   try {
   //     const data = await deleteAxiosCall(
   //       `http://localhost:3001/wishlist/${wishlistId}`,
-  //       item["_id"]
+  //       item["_id"],
+  //       token
   //     );
   //     const wishlistProducts = data.wishlistItem.products;
   //     setFetchWishlist(wishlistProducts);
@@ -66,11 +67,11 @@ const WishlistCard = ({
             try {
               console.log(cartId, item["_id"]);
               const data = await updateAxiosCall(
-                `http://localhost:3001/cart/${cartId}`,
-                item["_id"]
+                `http://localhost:3001/cart/`,
+                item["_id"],
+                token
               );
               const cartProducts = data.cartItem.products;
-              console.log(cartProducts);
             } catch (e) {
               console.error(e);
             }

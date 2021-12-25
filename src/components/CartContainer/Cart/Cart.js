@@ -13,7 +13,7 @@ const Cart = ({ showToast, setShowToast, message, setMessage }) => {
   const { productData } = useProduct();
   const { cartItems, dataDispatch } = useData();
   const [fetchCart, setFetchCart] = useState([]);
-  const { userId, cartId, authDispatch } = useAuth();
+  const { userId, cartId, authDispatch, token } = useAuth();
   const [setToast, showSetToast] = useState(false);
 
   const URL = `http://localhost:3001/cart/${userId}`;
@@ -38,13 +38,12 @@ const Cart = ({ showToast, setShowToast, message, setMessage }) => {
     getCart();
   }, []);
 
-  // on click of button i should see the toast notification
-
   const addCartBtnClickHandler = async (item) => {
     try {
       const data = await updateAxiosCall(
-        `http://localhost:3001/cart/${cartId}`,
-        item["_id"]
+        `http://localhost:3001/cart`,
+        item["_id"],
+        token
       );
 
       console.log("fetchcart after item added", fetchCart);
@@ -60,8 +59,15 @@ const Cart = ({ showToast, setShowToast, message, setMessage }) => {
     setShowToast(true);
     try {
       const data = await axios.post(
-        `http://localhost:3001/cart/remove/${cartId}`,
-        { removeProductId: item["_id"] }
+        `http://localhost:3001/cart/remove`,
+        {
+          removeProductId: item["_id"],
+        },
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
       );
       if (data.status === 200) {
         setFetchCart(data.data.cartItem.cartProducts);

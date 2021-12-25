@@ -16,8 +16,8 @@ const WishlistContainer = () => {
   const [fetchWishlist, setFetchWishlist] = useState([]);
   const [showToast, setShowToast] = useState(false);
   const [message, setMessage] = useState();
-  const { userId, wishlistId, cartId, authDispatch } = useAuth();
-  const URL = `http://localhost:3001/wishlist/${userId}`;
+  const { userId, wishlistId, cartId, authDispatch, token } = useAuth();
+  const URL = `http://localhost:3001/wishlist/singlewishlist`;
 
   const removeWishlistItemClickHandler = async (item) => {
     // dataDispatch({ type: "WISHLIST_REMOVE", payload: item });
@@ -25,13 +25,14 @@ const WishlistContainer = () => {
     setMessage("item removed from wishlist");
     setShowToast(true);
     try {
-      console.log({ wishlistId: wishlistId, item: item });
+      // console.log({ wishlistId: wishlistId, item: item });
       const data = await deleteAxiosCall(
-        `http://localhost:3001/wishlist/${wishlistId}`,
-        item["_id"]
+        `http://localhost:3001/wishlist/removeitem`,
+        item["_id"],
+        token
       );
       const wishlistProducts = data.wishlistItem.products;
-      console.log({ wishlistProducts });
+      // console.log({ wishlistProducts });
       setFetchWishlist(wishlistProducts);
     } catch (e) {
       console.error(e);
@@ -41,7 +42,7 @@ const WishlistContainer = () => {
   useEffect(() => {
     async function getwishlist() {
       try {
-        let { data } = await getAxiosCall(URL);
+        let { data } = await getAxiosCall(URL, token);
 
         const wishlistProducts = data.wishlistItem.products.reduce(
           (acc, cur) => {

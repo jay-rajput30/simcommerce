@@ -1,21 +1,33 @@
 import "./SignUp.css";
-import {useState} from "react"
+import { useState } from "react";
 import axios from "axios";
+import { Navigate, useNavigate } from "react-router";
 
 const SignUp = () => {
-  const [userDetails, setUserDetails] = useState({name:"", email:"", password:""})
+  const navigate = useNavigate  ();
+  const [userDetails, setUserDetails] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
   const handleSubmit = (e) => {
     e.preventDefault();
     return null;
   };
 
-  const inputChangeHandler = (e) =>{
-    const {name, value} = e.target;
+  const inputChangeHandler = (e) => {
+    const { name, value } = e.target;
     console.log(name, value);
-    setUserDetails({...userDetails, [name]: value});
-  }
+    setUserDetails({ ...userDetails, [name]: value });
+  };
   const signUpClickHandler = async () => {
-    const {data}= await axios.post("http://localhost:3001/user", userDetails);
+    const { data } = await axios.post(
+      "http://localhost:3001/user",
+      userDetails
+    );
+    if (data.success === true) {
+      navigate("/login");
+    }
   };
   return (
     <div className="main--container">
@@ -23,15 +35,30 @@ const SignUp = () => {
         <form onSubmit={handleSubmit}>
           <div className="form--item">
             <label className="username--label">name</label>
-            <input name="name" type="text" className="username--input" onChange={inputChangeHandler} />
+            <input
+              name="name"
+              type="text"
+              className="username--input"
+              onChange={inputChangeHandler}
+            />
           </div>
           <div className="form--item">
             <label className="email--label">email</label>
-            <input name="email" type="text" className="email--input" onChange={inputChangeHandler} />
+            <input
+              name="email"
+              type="text"
+              className="email--input"
+              onChange={inputChangeHandler}
+            />
           </div>
           <div className="form--item">
             <label className="password--label">password</label>
-            <input name="password" type="password" className="password--input" onChange={inputChangeHandler} />
+            <input
+              name="password"
+              type="password"
+              className="password--input"
+              onChange={inputChangeHandler}
+            />
           </div>
           <div className="form--button">
             <button
