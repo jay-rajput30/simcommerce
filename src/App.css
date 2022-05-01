@@ -1,0 +1,9 @@
+ 
+ 
+
+.nav--items {
+  padding: var(--space-2);
+  border: 2px solid red;
+  position: fixed;
+  bottom: 0px;
+}

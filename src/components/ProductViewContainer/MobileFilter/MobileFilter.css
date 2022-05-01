@@ -1,0 +1,31 @@
+.filter--container {
+  height: 50%;
+  background-color: #fff;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+}
+
+.mobile--filter--options {
+  padding: var(--space-1) var(--space-2);
+  margin-left: auto;
+  margin-right: auto;
+  /* margin-top: 8rem; */
+  width: 15rem;
+  padding: 2rem 1rem;
+}
+label {
+  margin-left: 0.5rem;
+}
+
+.mobile--filter--options__item {
+  padding: 1rem 2.7rem;
+}
+legend {
+  text-align: center;
+  font-weight: 700;
+  font-family: inherit;
+  background-color: var(--main-color);
+  color: white;
+  padding: 0.7rem;
+}

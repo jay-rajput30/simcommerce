@@ -1,0 +1,72 @@
+@import url("https://simcom.netlify.app/style.css");
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+body {
+  /* width: 100vw; */
+  /* height: 100vh; */
+  overflow-x: hidden;
+}
+.badge .card--badge {
+  transition: transform 0.2s linear;
+}
+.badge .card--badge:focus {
+  transform: scale(1.5);
+}
+.sticky--nav {
+  /* width: 100%; */
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.cart--items {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* .cart--item--container {
+  margin-bottom: var(--space-2); */
+/* border: 2px solid red; */
+/* padding: var(--space-2);
+  width: 40%;
+} */
+
+.cart--item--container:first-child {
+  margin-top: var(--space-2);
+}
+.cart--item {
+  flex-grow: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cart--item > small {
+  color: var(--main-color);
+}
+.cart--item__button-group {
+  padding-left: var(--space-2);
+}
+
+/* .price--sort{
+  border: 2px solid green;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.filter--options__item{
+  padding: var(--space-1);
+  margin-bottom: var(--space-2);
+} */
+
+.active--link {
+  font-weight: bold;
+}

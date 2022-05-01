@@ -1,0 +1,25 @@
+.product--view--container {
+  /* border: 2px solid greenyellow; */
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.floating--button {
+  display: none;
+}
+
+@media only screen and (max-width: 786px) {
+  .floating--button {
+    margin: 1rem;
+    display: inline-block;
+    height: 58px;
+    width: 58px;
+    font-size: 1.5rem;
+    position: fixed;
+    bottom: 50px;
+    right: 20px;
+  }
+}
