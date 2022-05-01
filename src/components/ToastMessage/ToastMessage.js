@@ -1,10 +1,7 @@
 import "./ToastMessage.css";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 const ToastMessage = ({ message, setShowToast }) => {
-  // const [showToast, setShowToast] = useState(false);
-
   useEffect(() => {
-    // setShowToast(true);
     const timer = setTimeout(() => {
       setShowToast(false);
     }, 2000);

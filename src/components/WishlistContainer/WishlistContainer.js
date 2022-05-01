@@ -1,12 +1,10 @@
-// import axios from "axios";
 import "./WishlistContainer.css";
 import { useEffect, useState } from "react";
-import { useAuth } from "../../AuthProvider";
-import { useData } from "../../DataProvider";
-import { useProduct } from "../../ProductProvider";
+import { useAuth } from "../../providers/AuthProvider";
+import { useData } from "../../providers/DataProvider";
+import { useProduct } from "../../providers/ProductProvider";
 import { deleteAxiosCall } from "../../services/deleteAxiosCall";
 import { getAxiosCall } from "../../services/getAxiosCall";
-import { updateAxiosCall } from "../../services/updateAxiosCall";
 import WishlistCard from "./WishlistCard/WishlistCard";
 import ToastMessage from "../ToastMessage/ToastMessage";
 
@@ -16,23 +14,20 @@ const WishlistContainer = () => {
   const [fetchWishlist, setFetchWishlist] = useState([]);
   const [showToast, setShowToast] = useState(false);
   const [message, setMessage] = useState();
-  const { userId, wishlistId, cartId, authDispatch, token } = useAuth();
-  const URL = `http://localhost:3001/wishlist/singlewishlist`;
+  const { authDispatch, token } = useAuth();
+  const URL = `https://simcombe.herokuapp.com/wishlist/singlewishlist`;
 
   const removeWishlistItemClickHandler = async (item) => {
-    // dataDispatch({ type: "WISHLIST_REMOVE", payload: item });
-    // console.log({ name: item["name"] });
     setMessage("item removed from wishlist");
     setShowToast(true);
     try {
-      // console.log({ wishlistId: wishlistId, item: item });
       const data = await deleteAxiosCall(
-        `http://localhost:3001/wishlist/removeitem`,
+        `https://simcombe.herokuapp.com/wishlist/removeitem`,
         item["_id"],
         token
       );
       const wishlistProducts = data.wishlistItem.products;
-      // console.log({ wishlistProducts });
+
       setFetchWishlist(wishlistProducts);
     } catch (e) {
       console.error(e);
@@ -54,7 +49,7 @@ const WishlistContainer = () => {
         );
 
         setFetchWishlist([...fetchWishlist, ...Object.keys(wishlistProducts)]);
-        console.log({ fetchWishlist });
+
         dataDispatch({ type: "LOAD_WISHLIST", payload: fetchWishlist });
         authDispatch({
           type: "SET_WISHLISTID",

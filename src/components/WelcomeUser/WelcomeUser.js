@@ -1,5 +1,5 @@
 import { IconContext } from "react-icons/lib";
-import { useAuth } from "../../AuthProvider";
+import { useAuth } from "../../providers/AuthProvider";
 import { FaPowerOff } from "react-icons/fa";
 import "./WelcomeUser.css";
 import { useNavigate } from "react-router";

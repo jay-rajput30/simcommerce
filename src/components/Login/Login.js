@@ -1,11 +1,8 @@
-// import { useLocation, useNavigate } from "react-router";
-// import { useAuth } from "../../AuthProvider";
 import "./Login.css";
 import { NavLink, useNavigate } from "react-router-dom";
-import { useAuth } from "../../AuthProvider";
+import { useAuth } from "../../providers/AuthProvider";
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { getAxiosCall } from "../../services/getAxiosCall";
+import { useState } from "react";
 
 const Login = () => {
   const { loginStatus, authDispatch } = useAuth();
@@ -13,42 +10,18 @@ const Login = () => {
     username: null,
     password: null,
   });
-  // const [allUsers, setAllUsers] = useState([]);
+
   const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   async function getUsers() {
-  //     try {
-  //       let { data } = await axios.get("http://localhost:3001/user/");
-  //       setAllUsers([...allUsers, data.users]);
-  //     } catch (e) {
-  //       console.error(e);
-  //     }
-  //   }
-  //   getUsers();
-  // }, []);
-
-  // const setLoginDetails = (username, password) => {
-  //   // authDispatch({ type: "SET_USERNAME", payload: username });
-  //   // authDispatch({ type: "SET_PASSWORD", payload: password });
-  // };
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  // };
-
-  // const getDetails = (userId, username, password) => {
-  //   const wishlist = axios.get(`http://localhost:3001/wishlist/${userId}`);
-  //   const cart = axios.get(`http://localhost:3001/cart/${userId}`);
-  //   authDispatch({ type: "SET_WISHLIST", payload: wishlist });
-  //   authDispatch({ type: "SET_CART", payload: cart });
-  // };
 
   const loginClickHandler = async () => {
     try {
-      const response = await axios.post("http://localhost:3001/user/validate", {
-        username: inputUser.username,
-        password: inputUser.password,
-      });
+      const response = await axios.post(
+        "https://simcombe.herokuapp.com/user/validate",
+        {
+          username: inputUser.username,
+          password: inputUser.password,
+        }
+      );
 
       if (response.data?.success === true) {
         authDispatch({
@@ -60,16 +33,7 @@ const Login = () => {
             token: response.data.token,
           },
         });
-        // authDispatch({ type: "LOG_ON", payload: true });
-        // authDispatch({ type: "SET_USERID", payload: data.userId });
-        // authDispatch({
-        //   type: "SET_CARTID",
-        //   payload: data.cartItem._id,
-        // });
-        // authDispatch({
-        //   type: "SET_WISHLISTID",
-        //   payload: data.wishlistItem._id,
-        // });
+
         localStorage.setItem(
           "userDetails",
           JSON.stringify({
@@ -105,17 +69,13 @@ const Login = () => {
             <label className="password--label">password</label>
             <input
               type="password"
-              // id="outline--input"
               className=" password--input"
               onChange={(e) => {
                 setInputUser({ ...inputUser, password: e.target.value });
               }}
             />
           </div>
-          <div
-            style={{ display: "flex", justifyContent: "center" }}
-            // className="form--item button--form--item"
-          >
+          <div style={{ display: "flex", justifyContent: "center" }}>
             <button
               onClick={loginClickHandler}
               className="button primary--button"
@@ -123,10 +83,7 @@ const Login = () => {
               login
             </button>
           </div>
-          <div
-            style={{ display: "flex", justifyContent: "center" }}
-            // className="form--item"
-          >
+          <div style={{ display: "flex", justifyContent: "center" }}>
             <small>
               Haven't signed up yet? <NavLink to="/signup">sign up</NavLink>
             </small>

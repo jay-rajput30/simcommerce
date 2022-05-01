@@ -1,8 +1,7 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
-import { useAuth } from "../../AuthProvider";
-import { useData } from "../../DataProvider";
-import { useProduct } from "../../ProductProvider";
+import { useAuth } from "../../providers/AuthProvider";
+import { useData } from "../../providers/DataProvider";
+import { useProduct } from "../../providers/ProductProvider";
 import { deleteAxiosCall } from "../../services/deleteAxiosCall";
 import { getAxiosCall } from "../../services/getAxiosCall";
 import { updateAxiosCall } from "../../services/updateAxiosCall";
@@ -13,7 +12,7 @@ const Wishlist = ({ route, setRoute }) => {
   const [fetchWishlist, setFetchWishlist] = useState([]);
   const { userId, wishlistId, cartId, authDispatch } = useAuth();
 
-  const URL = `http://localhost:3001/wishlist/${userId}`;
+  const URL = `https://simcombe.herokuapp.com/wishlist/${userId}`;
 
   useEffect(() => {
     async function getwishlist() {
@@ -69,13 +68,11 @@ const Wishlist = ({ route, setRoute }) => {
                   dataDispatch({ type: "CART_ADD", payload: item });
 
                   try {
-                    console.log(cartId, item["_id"]);
                     const data = await updateAxiosCall(
-                      `http://localhost:3001/cart/${cartId}`,
+                      `https://simcombe.herokuapp.com/cart/${cartId}`,
                       item["_id"]
                     );
                     const cartProducts = data.cartItem.products;
-                    console.log(cartProducts);
                   } catch (e) {
                     console.error(e);
                   }
@@ -89,7 +86,7 @@ const Wishlist = ({ route, setRoute }) => {
                   dataDispatch({ type: "WISHLIST_REMOVE", payload: item });
                   try {
                     const data = await deleteAxiosCall(
-                      `http://localhost:3001/wishlist/${wishlistId}`,
+                      `https://simcombe.herokuapp.com/wishlist/${wishlistId}`,
                       item["_id"]
                     );
                     const wishlistProducts = data.wishlistItem.products;

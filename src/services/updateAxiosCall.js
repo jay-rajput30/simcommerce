@@ -1,5 +1,4 @@
 import axios from "axios";
-// import { useAuth } from "../AuthProvider";
 
 export const updateAxiosCall = async (url, id, token) => {
   try {

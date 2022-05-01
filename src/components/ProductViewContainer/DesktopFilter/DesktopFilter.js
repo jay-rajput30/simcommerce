@@ -1,4 +1,4 @@
-import { useProduct } from "../../../ProductProvider";
+import { useProduct } from "../../../providers/ProductProvider";
 import "./DesktopFilter.css";
 
 const DesktopFilter = () => {
@@ -35,16 +35,6 @@ const DesktopFilter = () => {
           </div>
         </div>
         <div className="delivery--sort">
-          {/* <div className="filter--options__item">
-        <input
-          onChange={() => dispatch({ type: "OUT_OF_STOCK" })}
-          type="checkbox"
-          id="out_of_stock"
-          name="out_of_stock"
-          value="out of stock"
-        />
-        <label htmlFor="out_of_stock">remove out of stock</label>
-      </div> */}
           <div className="filter--options__item">
             <input
               onChange={() => dispatch({ type: "FAST_DELIVERY" })}

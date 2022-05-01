@@ -1,11 +1,7 @@
-// import { useData } from "../../DataProvider";
-import { useProduct } from "../../../ProductProvider";
+import { useProduct } from "../../../providers/ProductProvider";
 import "./Products.css";
-import { AiOutlineHeart } from "react-icons/ai";
-import { FcLike } from "react-icons/fc";
 import ProductCard from "./ProductCard/ProductCard";
-import { useData } from "../../../DataProvider";
-import { useState } from "react";
+import { useData } from "../../../providers/DataProvider";
 
 const Products = ({ showToast, setShowToast, message, setMessage }) => {
   const { wishlistItems } = useData();
@@ -30,11 +26,11 @@ const Products = ({ showToast, setShowToast, message, setMessage }) => {
   const sortedData = sortData(productData, sortBy);
   let filteredData = filterData(sortedData, { showFastDelivery });
 
-  const findWishlistedItem = (item) => {
-    return wishlistItems.some(
-      (i) => item.id === i.id && i.isWishlisted === true
-    );
-  };
+  // const findWishlistedItem = (item) => {
+  //   return wishlistItems.some(
+  //     (i) => item.id === i.id && i.isWishlisted === true
+  //   );
+  // };
   return (
     <div className="product--container">
       <section className="products--section">

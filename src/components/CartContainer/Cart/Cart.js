@@ -1,9 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useAuth } from "../../../AuthProvider";
-import { useData } from "../../../DataProvider";
-import { useProduct } from "../../../ProductProvider";
-import { deleteAxiosCall } from "../../../services/deleteAxiosCall";
+import { useAuth } from "../../../providers/AuthProvider";
+import { useData } from "../../../providers/DataProvider";
+import { useProduct } from "../../../providers/ProductProvider";
 import { getAxiosCall } from "../../../services/getAxiosCall";
 import { updateAxiosCall } from "../../../services/updateAxiosCall";
 import ToastMessage from "../../ToastMessage/ToastMessage";
@@ -11,20 +10,20 @@ import "./Cart.css";
 
 const Cart = ({ showToast, setShowToast, message, setMessage }) => {
   const { productData } = useProduct();
-  const { cartItems, dataDispatch } = useData();
+  const { dataDispatch } = useData();
   const [fetchCart, setFetchCart] = useState([]);
-  const { userId, cartId, authDispatch, token } = useAuth();
-  const [setToast, showSetToast] = useState(false);
+  const { userId, authDispatch, token } = useAuth();
+  const [setToast] = useState(false);
 
-  const URL = `http://localhost:3001/cart/${userId}`;
+  const URL = `https://simcombe.herokuapp.com/cart/${userId}`;
 
   useEffect(() => {
     async function getCart() {
       try {
         let { data } = await getAxiosCall(URL);
-        // console.log(data);
+
         const cartProducts = data.cartItem.cartProducts;
-        // console.log(cartProducts);
+
         setFetchCart([...fetchCart, ...cartProducts]);
         dataDispatch({ type: "LOAD_CART", payload: fetchCart });
         authDispatch({
@@ -41,7 +40,7 @@ const Cart = ({ showToast, setShowToast, message, setMessage }) => {
   const addCartBtnClickHandler = async (item) => {
     try {
       const data = await updateAxiosCall(
-        `http://localhost:3001/cart`,
+        `https://simcombe.herokuapp.com/cart`,
         item["_id"],
         token
       );
@@ -59,7 +58,7 @@ const Cart = ({ showToast, setShowToast, message, setMessage }) => {
     setShowToast(true);
     try {
       const data = await axios.post(
-        `http://localhost:3001/cart/remove`,
+        `https://simcombe.herokuapp.com/cart/remove`,
         {
           removeProductId: item["_id"],
         },
@@ -79,7 +78,7 @@ const Cart = ({ showToast, setShowToast, message, setMessage }) => {
     }
     // try {
     //   const data = await deleteAxiosCall(
-    //     `http://localhost:3001/cart/remove/${cartId}`,
+    //     `https://simcombe.herokuapp.com/cart/remove/${cartId}`,
     //     item["_id"]
     //   );
     //   console.log(data.cartItem.products.length);

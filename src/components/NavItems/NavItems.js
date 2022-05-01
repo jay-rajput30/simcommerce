@@ -8,7 +8,7 @@ import {
 } from "react-icons/fa";
 import { IconContext } from "react-icons";
 import { NavLink } from "react-router-dom";
-import { useAuth } from "../../AuthProvider";
+import { useAuth } from "../../providers/AuthProvider";
 
 const NavItems = () => {
   const { loginStatus } = useAuth();

@@ -20,7 +20,9 @@ export const ProductProvider = ({ children }) => {
 
   useEffect(() => {
     async function fetchData() {
-      const { data } = await axios.get("http://localhost:3001/product");
+      const { data } = await axios.get(
+        "https://simcombe.herokuapp.com/product"
+      );
       setProductData([...data.products]);
     }
     fetchData();

@@ -1,11 +1,9 @@
 import "./ProductCard.css";
-import { AiOutlineHeart } from "react-icons/ai";
-import { FcLike } from "react-icons/fc";
-import { useData } from "../../../../DataProvider";
+
+import { useData } from "../../../../providers/DataProvider";
 import { updateAxiosCall } from "../../../../services/updateAxiosCall";
-import { useAuth } from "../../../../AuthProvider";
+import { useAuth } from "../../../../providers/AuthProvider";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
 
 const ProductCard = ({
   item,
@@ -14,14 +12,14 @@ const ProductCard = ({
   message,
   setMessage,
 }) => {
-  const { wishlistItems, dataDispatch } = useData();
-  const { userId, wishlistId, cartId, token } = useAuth();
-  // console.log({ token });
-  const findWishlistedItem = (item) => {
-    return wishlistItems.find(
-      (i) => item.id === i.id && i.isWishlisted === true
-    );
-  };
+  const { dataDispatch } = useData();
+  const { token } = useAuth();
+
+  // const findWishlistedItem = (item) => {
+  //   return wishlistItems.find(
+  //     (i) => item.id === i.id && i.isWishlisted === true
+  //   );
+  // };
 
   const addWishlistBtnClickHandler = async () => {
     setMessage("item added to wishlist");
@@ -30,7 +28,7 @@ const ProductCard = ({
       dataDispatch({ type: "WISHLIST_ADD", payload: item });
       try {
         const data = await updateAxiosCall(
-          `http://localhost:3001/wishlist`,
+          `https://simcombe.herokuapp.com/wishlist`,
           item["_id"],
           token
         );
@@ -45,7 +43,7 @@ const ProductCard = ({
     setShowToast(true);
     try {
       const data = await updateAxiosCall(
-        `http://localhost:3001/cart`,
+        `https://simcombe.herokuapp.com/cart`,
         item["_id"],
         token
       );
@@ -63,28 +61,13 @@ const ProductCard = ({
         />
         <span className="card--top--text">{item.name}</span>
       </div>
-      {/* <span
-        style={{ backgroundColor: "white", background: "transparent" }}
-        className="badge card--badge"
-        onClick={() => {
-          if (item.outOfStock) {
-            dataDispatch({ type: "WISHLIST_ADD", payload: item });
-          }
-        }}
-      >
-        {
-          // findWishlistedItem(item) ? (
-          //   <FcLike style={{ fontSize: "1.5rem" }} />
-          // ) : (
-          <AiOutlineHeart style={{ fontSize: "1.5rem" }} />
-        }
-      </span> */}
+
       <div className="card--bottom">
         <div className="card--details--container">
           <p>Rs.{item["price"]}</p>
           {/* <p>{item.outOfStock ? "out of stock" : "in stock"}</p>
           <p>{item.fastDelivery ? "fast delivery" : null}</p> */}
-          <Link classname="view--detail" to="/product/${item.id}">
+          <Link classname="view--detail" to={`/product/${item.id}`}>
             view more
           </Link>
         </div>

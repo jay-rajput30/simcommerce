@@ -1,10 +1,10 @@
 import "./SignUp.css";
 import { useState } from "react";
 import axios from "axios";
-import { Navigate, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 
 const SignUp = () => {
-  const navigate = useNavigate  ();
+  const navigate = useNavigate();
   const [userDetails, setUserDetails] = useState({
     name: "",
     email: "",
@@ -22,7 +22,7 @@ const SignUp = () => {
   };
   const signUpClickHandler = async () => {
     const { data } = await axios.post(
-      "http://localhost:3001/user",
+      "https://simcombe.herokuapp.com/user",
       userDetails
     );
     if (data.success === true) {

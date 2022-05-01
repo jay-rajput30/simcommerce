@@ -3,7 +3,7 @@ import Products from "./Products/Products";
 import "./ProductViewContainer.css";
 import { useState, useEffect } from "react";
 import MobileFilter from "./MobileFilter/MobileFilter";
-import { useAuth } from "../../AuthProvider";
+import { useAuth } from "../../providers/AuthProvider";
 import axios from "axios";
 import ToastMessage from "../ToastMessage/ToastMessage";
 
@@ -11,22 +11,12 @@ const ProductViewContainer = () => {
   const [showFilter, setShowFilter] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const [message, setMessage] = useState();
-  const {
-    loginStatus,
-    userId,
-    wishlistId,
-    cartId,
-    wishlistItems,
-    cartItems,
-    authDispatch,
-    token,
-  } = useAuth();
+  const { authDispatch, token } = useAuth();
 
   useEffect(() => {
     async function fetchUserDetails() {
-      console.log({token})
       const data = await axios.get(
-        `http://localhost:3001/user/usercollection/`,
+        `https://simcombe.herokuapp.com/user/usercollection/`,
         {
           headers: {
             Authorization: token,
@@ -42,8 +32,6 @@ const ProductViewContainer = () => {
 
     fetchUserDetails();
   }, []);
-
-  console.log({ userId, wishlistId, cartId });
 
   const showFilterBtnHandler = () => {
     setShowFilter(true);
