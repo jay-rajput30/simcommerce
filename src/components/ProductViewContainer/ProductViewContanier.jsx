@@ -6,7 +6,6 @@ import MobileFilter from "./MobileFilter/MobileFilter";
 import { useAuth } from "../../providers/AuthProvider";
 import axios from "axios";
 import ToastMessage from "../ToastMessage/ToastMessage";
-
 const ProductViewContainer = () => {
   const [showFilter, setShowFilter] = useState(false);
   const [showToast, setShowToast] = useState(false);

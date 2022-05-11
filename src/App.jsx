@@ -19,9 +19,12 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Home route={route} setRoute={setRoute} />} />
-        <PrivateRoute path="/product" element={<ProductView />} />
-        <PrivateRoute path="/wishlist" element={<WishlistPage />} />
-        <PrivateRoute path="/cart" element={<CartPage />} />
+        <Route element={<PrivateRoute />}>
+          <Route path="/product" element={<ProductView />} />
+          <Route path="/cart" element={<CartPage />} />
+          <Route path="/wishlist" element={<WishlistPage />} />
+        </Route>
+
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
       </Routes>

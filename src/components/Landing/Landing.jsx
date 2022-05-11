@@ -11,9 +11,11 @@ const Landing = () => {
   return (
     <>
       <h2>your one stop shop for cricket products</h2>
-      <Categories/>
+      <Categories />
       <div className="btn-container">
-      <button className="button primary--button" onClick={buttonClickHandler}>start shopping</button>
+        <button className="button primary--button" onClick={buttonClickHandler}>
+          start shopping
+        </button>
       </div>
     </>
   );

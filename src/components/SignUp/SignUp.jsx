@@ -2,7 +2,6 @@ import "./SignUp.css";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router";
-
 const SignUp = () => {
   const navigate = useNavigate();
   const [userDetails, setUserDetails] = useState({
@@ -17,7 +16,6 @@ const SignUp = () => {
 
   const inputChangeHandler = (e) => {
     const { name, value } = e.target;
-    console.log(name, value);
     setUserDetails({ ...userDetails, [name]: value });
   };
   const signUpClickHandler = async () => {

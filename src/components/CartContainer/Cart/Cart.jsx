@@ -5,18 +5,15 @@ import { useData } from "../../../providers/DataProvider";
 import { useProduct } from "../../../providers/ProductProvider";
 import { getAxiosCall } from "../../../services/getAxiosCall";
 import { updateAxiosCall } from "../../../services/updateAxiosCall";
-import ToastMessage from "../../ToastMessage/ToastMessage";
 import "./Cart.css";
-
 const Cart = ({ showToast, setShowToast, message, setMessage }) => {
   const { productData } = useProduct();
   const { dataDispatch } = useData();
   const [fetchCart, setFetchCart] = useState([]);
   const { userId, authDispatch, token } = useAuth();
-  const [setToast] = useState(false);
 
   const URL = `https://simcombe.herokuapp.com/cart/${userId}`;
-
+  // eslint-disable-next-line
   useEffect(() => {
     async function getCart() {
       try {
@@ -45,12 +42,10 @@ const Cart = ({ showToast, setShowToast, message, setMessage }) => {
         token
       );
 
-      console.log("fetchcart after item added", fetchCart);
       setFetchCart(data.cartItem.cartProducts);
     } catch (e) {
       console.error(e);
     }
-    setToast && <ToastMessage message={"item added to cart"} />;
   };
 
   const removeCartBtnClickHandler = async (item) => {
@@ -76,39 +71,17 @@ const Cart = ({ showToast, setShowToast, message, setMessage }) => {
       console.error(err);
       return null;
     }
-    // try {
-    //   const data = await deleteAxiosCall(
-    //     `https://simcombe.herokuapp.com/cart/remove/${cartId}`,
-    //     item["_id"]
-    //   );
-    //   console.log(data.cartItem.products.length);
-    //   console.log("fetchcart after item removed", fetchCart);
-    //   setFetchCart(data.cartItem.products);
-    // }
-    // catch (e) {
-    //   console.error(e);
-    // }
   };
-  console.log({ fetchCart });
+
   let userCart = fetchCart.map((item) =>
     productData.find((productItem) => productItem._id === item)
   );
-
-  let newUserCart = [...new Set(userCart)];
 
   let totalPrice = fetchCart.reduce((acc, item) => {
     return acc + item.productId.price * item.quantity;
   }, 0);
 
-  // let totalPrice = usercartItemCount.reduce(
-  //   (acc, curr) => (acc = acc + curr),
-  //   0
-  // );
-
-  // console.log({ usercartItemCount, totalPrice });
-  console.log({ fetchCart });
   return (
-    // className="primary--section text--color__primary"
     <section className="cart--section">
       <h2 className="text-utility heading">
         Total amount: (Rs.) {totalPrice}{" "}
@@ -117,12 +90,10 @@ const Cart = ({ showToast, setShowToast, message, setMessage }) => {
         {fetchCart.map(({ productId: item, quantity }) => {
           return (
             <li key={item._id} className="cart--item--container">
-              {/* {console.log(item)} */}
               <div className="cart--item">
-                <div class="cart--item__details">
+                <div className="cart--item__details">
                   <h4>
                     {item.name} X{quantity}
-                    {/* {userCart.filter((i) => i._id === item._id).length} */}
                   </h4>
                   <div className="cart--item__button-group">
                     <button
@@ -140,14 +111,6 @@ const Cart = ({ showToast, setShowToast, message, setMessage }) => {
                     >
                       -
                     </button>
-                    {/* <button
-                      onClick={() =>
-                        dataDispatch({ type: "CART_REMOVE", payload: item })
-                      }
-                      className="button secondary--button"
-                    >
-                      remove
-                    </button> */}
                   </div>
                 </div>
                 <small className="text-utility heading">

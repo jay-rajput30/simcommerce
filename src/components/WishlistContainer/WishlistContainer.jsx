@@ -33,7 +33,7 @@ const WishlistContainer = () => {
       console.error(e);
     }
   };
-
+  // eslint-disable-next-line
   useEffect(() => {
     async function getwishlist() {
       try {
@@ -70,6 +70,7 @@ const WishlistContainer = () => {
       {userWishlist.map((item) => {
         return (
           <WishlistCard
+            key={item._id}
             item={item}
             fetchWishlist={fetchWishlist}
             setFetchWishlist={setFetchWishlist}

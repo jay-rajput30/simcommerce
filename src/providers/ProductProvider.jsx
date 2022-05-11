@@ -1,7 +1,6 @@
 import { createContext, useContext, useReducer } from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
-
 const productContext = createContext();
 
 const reducerFunc = (state, action) => {

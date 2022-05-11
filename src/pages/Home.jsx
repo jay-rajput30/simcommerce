@@ -1,6 +1,5 @@
 import Landing from "../components/Landing/Landing";
 import Navbar from "../components/Navbar/Navbar";
-
 const Home = ({ route, setRoute }) => {
   return (
     <>

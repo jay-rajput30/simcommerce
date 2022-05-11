@@ -1,5 +1,4 @@
 import { createContext, useContext, useReducer } from "react";
-
 export const loginContext = createContext();
 
 const reducerFunc = (state, { type, payload }) => {

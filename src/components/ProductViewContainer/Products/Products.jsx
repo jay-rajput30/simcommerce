@@ -1,10 +1,9 @@
 import { useProduct } from "../../../providers/ProductProvider";
 import "./Products.css";
 import ProductCard from "./ProductCard/ProductCard";
-import { useData } from "../../../providers/DataProvider";
-
+// import { useData } from "../../../providers/DataProvider";
 const Products = ({ showToast, setShowToast, message, setMessage }) => {
-  const { wishlistItems } = useData();
+  // const { wishlistItems } = useData();
   const { productData, sortBy, showFastDelivery } = useProduct();
 
   const sortData = (productData, sortBy) => {
@@ -26,17 +25,13 @@ const Products = ({ showToast, setShowToast, message, setMessage }) => {
   const sortedData = sortData(productData, sortBy);
   let filteredData = filterData(sortedData, { showFastDelivery });
 
-  // const findWishlistedItem = (item) => {
-  //   return wishlistItems.some(
-  //     (i) => item.id === i.id && i.isWishlisted === true
-  //   );
-  // };
   return (
     <div className="product--container">
       <section className="products--section">
         {filteredData.map((item) => {
           return (
             <ProductCard
+              key={item._id}
               item={item}
               showToast={showToast}
               setShowToast={setShowToast}

@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "../../../providers/AuthProvider";
 import { useData } from "../../../providers/DataProvider";
-
 import { updateAxiosCall } from "../../../services/updateAxiosCall";
 
 const WishlistCard = ({

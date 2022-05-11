@@ -3,7 +3,6 @@ import { useAuth } from "../../providers/AuthProvider";
 import { FaPowerOff } from "react-icons/fa";
 import "./WelcomeUser.css";
 import { useNavigate } from "react-router";
-
 const WelcomeUser = ({ username }) => {
   const { authDispatch } = useAuth();
   const navigate = useNavigate();

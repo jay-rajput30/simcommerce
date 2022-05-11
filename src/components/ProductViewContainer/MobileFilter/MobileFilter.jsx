@@ -1,6 +1,5 @@
 import { useProduct } from "../../../providers/ProductProvider";
 import "./MobileFilter.css";
-
 const MobileFilter = ({ hideFilter }) => {
   const { sortBy, dispatch } = useProduct();
   return (

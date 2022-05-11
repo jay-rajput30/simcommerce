@@ -1,5 +1,4 @@
 import { createContext, useReducer, useContext } from "react";
-
 export const dataContext = createContext();
 
 const dataReducerFunc = (state, { type, payload }) => {
@@ -32,7 +31,6 @@ const dataReducerFunc = (state, { type, payload }) => {
           (item) => item.id !== payload.id
         ),
       };
-   
 
     case "CART_ADD": {
       let newPayload = { ...payload, quantity: 1 };

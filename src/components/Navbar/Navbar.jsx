@@ -1,6 +1,5 @@
 import "./Navbar.css";
 import { NavLink } from "react-router-dom";
-
 const Navbar = ({ route, setRoute }) => {
   return (
     <nav className="sticky--nav navbar">

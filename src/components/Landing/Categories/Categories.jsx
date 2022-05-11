@@ -1,5 +1,4 @@
 import "./Categories.css";
-
 const Categories = () => {
   return (
     <section className="home--categories--container">

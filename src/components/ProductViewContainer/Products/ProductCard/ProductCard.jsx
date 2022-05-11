@@ -1,5 +1,4 @@
 import "./ProductCard.css";
-
 import { useData } from "../../../../providers/DataProvider";
 import { updateAxiosCall } from "../../../../services/updateAxiosCall";
 import { useAuth } from "../../../../providers/AuthProvider";
@@ -14,12 +13,6 @@ const ProductCard = ({
 }) => {
   const { dataDispatch } = useData();
   const { token } = useAuth();
-
-  // const findWishlistedItem = (item) => {
-  //   return wishlistItems.find(
-  //     (i) => item.id === i.id && i.isWishlisted === true
-  //   );
-  // };
 
   const addWishlistBtnClickHandler = async () => {
     setMessage("item added to wishlist");

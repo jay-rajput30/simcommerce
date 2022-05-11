@@ -3,9 +3,8 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../../providers/AuthProvider";
 import axios from "axios";
 import { useState } from "react";
-
 const Login = () => {
-  const { loginStatus, authDispatch } = useAuth();
+  const { authDispatch } = useAuth();
   const [inputUser, setInputUser] = useState({
     username: null,
     password: null,
@@ -46,7 +45,6 @@ const Login = () => {
       } else {
         console.error("incorrect credentials");
       }
-      console.log({ loginStatus });
     } catch (e) {
       console.error(e);
     }
