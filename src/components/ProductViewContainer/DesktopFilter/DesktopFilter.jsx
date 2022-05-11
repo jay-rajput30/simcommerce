@@ -1,5 +1,5 @@
 import { useProduct } from "../../../providers/ProductProvider";
-import "./DesktopFilter.css";
+import "./DesktopFilterStyle.css";
 
 const DesktopFilter = () => {
   const { sortBy, dispatch } = useProduct();
