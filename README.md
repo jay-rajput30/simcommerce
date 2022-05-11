@@ -1,6 +1,6 @@
 # simcommerce
 this is an ecommerce app with CRUD features made on MERN stackwith user authentication and authorization using JWT.
-Live link: [link](https://simcommerce.netlify.app/)
+#### Live link: [link](https://simcommerce.netlify.app/)
 
 ## App features:
 - User sign in and login with JWT authentication and authorization.
